@@ -1,0 +1,2614 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="太虚问道录" />
+  <title>太虚问道录 · 诸天万道轮回版</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --base-font-size: 17px;
+      --bg-paper: #F6F4EC;
+      --card-white: #FFFFFF;
+      --pine-green: #2E5A44;
+      --pine-dark: #214231;
+      --bronze-gold: #B8860B;
+      --ink-black: #1F2421;
+      --ink-muted: #5A655E;
+      --border-soft: #E2DEC9;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    html { font-size: var(--base-font-size); }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--bg-paper); color: var(--ink-black);
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "STKaiti", "Microsoft YaHei", serif;
+      font-size: 1rem; line-height: 1.75;
+      touch-action: manipulation; user-select: none; -webkit-user-select: none; overscroll-behavior-y: none;
+    }
+    input, textarea, select { user-select: text; -webkit-user-select: text; font-size: 1rem !important; }
+    .paper-card {
+      background-color: var(--card-white); border: 1px solid var(--border-soft);
+      border-radius: 16px; box-shadow: 0 4px 14px rgba(46, 90, 68, 0.06);
+    }
+    .btn-pine {
+      background-color: var(--pine-green); color: #FFFFFF; min-height: 48px;
+      border-radius: 14px; font-weight: 700; font-size: 1rem;
+      transition: transform 0.12s ease, background-color 0.15s ease;
+      box-shadow: 0 3px 10px rgba(46, 90, 68, 0.2);
+    }
+    .btn-pine:active { transform: scale(0.97); background-color: var(--pine-dark); }
+    .btn-bronze {
+      background-color: var(--bronze-gold); color: #FFFFFF; min-height: 48px;
+      border-radius: 14px; font-weight: 700; font-size: 1rem;
+      transition: transform 0.12s ease, opacity 0.15s ease;
+      box-shadow: 0 3px 10px rgba(184, 134, 11, 0.22);
+    }
+    .btn-bronze:active { transform: scale(0.97); opacity: 0.9; }
+    .btn-choice {
+      background-color: #FFFFFF; color: var(--ink-black); border: 1.5px solid #D5CFB8;
+      min-height: 50px; border-radius: 14px; font-weight: 600; font-size: 1rem;
+      line-height: 1.5; transition: all 0.15s ease; text-align: left;
+    }
+    .btn-choice:active { transform: scale(0.98); background-color: #EBF3EE; border-color: var(--pine-green); }
+    .subtab-pill {
+      min-height: 42px; padding: 0 14px; border-radius: 9999px;
+      font-size: 0.92rem; font-weight: 700; white-space: nowrap; transition: all 0.15s ease;
+    }
+    .subtab-active { background-color: var(--pine-green); color: #FFFFFF; box-shadow: 0 2px 8px rgba(46, 90, 68, 0.24); }
+    .subtab-inactive { background-color: #EAE6D7; color: #4A554E; }
+    .main-nav-btn { min-height: 58px; border-radius: 14px; transition: all 0.15s ease; color: #5A655E; font-weight: 600; }
+    .main-nav-active { background-color: #E8F0EB; color: var(--pine-green); font-weight: 800; border: 1px solid rgba(46, 90, 68, 0.25); }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    .pb-safe { padding-bottom: calc(env(safe-area-inset-bottom, 10px) + 10px); }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col max-w-xl mx-auto">
+
+  <!-- ==================== 顶部极简状态栏 ==================== -->
+  <header class="sticky top-0 z-30 bg-[#F6F4EC]/95 backdrop-blur-md border-b border-[#E2DEC9] px-4 py-2.5">
+    <div class="flex items-center justify-between gap-2">
+      <div id="secretHeaderTrigger" class="flex items-center gap-2.5 cursor-pointer">
+        <div id="topLifeBadge" class="w-11 h-11 rounded-2xl bg-[#2E5A44] text-white flex items-center justify-center text-[0.95rem] font-extrabold shadow-sm">
+          第1世
+        </div>
+        <div>
+          <div class="flex items-center gap-1.5 flex-wrap">
+            <span id="topPlayerName" class="text-[1.15rem] font-extrabold text-[#1F2421]">求道者</span>
+            <span id="topPathBadge" class="px-2 py-0.5 text-[0.78rem] font-bold rounded-full bg-[#E8F0EB] text-[#2E5A44]">万法皆修</span>
+            <span id="topRealmBadge" class="px-2 py-0.5 text-[0.78rem] font-bold rounded-full bg-[#FDF8EC] text-[#B8860B] border border-[#B8860B]/40">炼气期</span>
+          </div>
+          <div class="text-[0.84rem] text-[#5A655E] flex items-center gap-2.5 mt-0.5">
+            <span>📍 <strong id="topLocationText" class="text-[#2E5A44]">云梦泽</strong></span>
+            <span>🪙 <strong id="topGoldText" class="text-[#B8860B]">200</strong></span>
+            <span>⏳ <strong id="topAgeText" class="text-[#1F2421]">18/100岁</strong></span>
+          </div>
+        </div>
+      </div>
+      <div class="flex items-center gap-1.5">
+      <div class="flex items-center gap-1.5">
+        <button id="topChangelogBtn" class="px-2.5 py-2 rounded-xl bg-white border border-[#D5CFB8] text-[#1F2421] font-bold text-[0.82rem] active:scale-95">📋 公告</button>
+        <button id="topOtaBtn" class="px-2.5 py-2 rounded-xl bg-[#FDF8EC] border border-[#B8860B]/40 text-[#B8860B] font-bold text-[0.82rem] active:scale-95">☁️ 更新</button>
+        <button id="quickSettingsBtn" class="px-2.5 py-2 rounded-xl bg-white border border-[#D5CFB8] text-[#2E5A44] font-bold text-[0.82rem] active:scale-95">⚙️ 灵枢</button>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-2 gap-3 mt-2">
+      <div>
+        <div class="flex justify-between text-[0.8rem] font-bold mb-0.5">
+          <span class="text-[#2E5A44]">❤️ 气血生机</span>
+          <span id="topHpText">300/300</span>
+        </div>
+        <div class="w-full h-2.5 bg-[#E5E1D0] rounded-full overflow-hidden">
+          <div id="topHpBar" class="h-full bg-[#2E5A44] transition-all duration-300" style="width:100%"></div>
+        </div>
+      </div>
+      <div>
+        <div class="flex justify-between text-[0.8rem] font-bold mb-0.5">
+          <span class="text-[#B8860B]">✨ 道行感悟</span>
+          <span id="topExpText">0/200</span>
+        </div>
+        <div class="w-full h-2.5 bg-[#E5E1D0] rounded-full overflow-hidden">
+          <div id="topExpBar" class="h-full bg-[#B8860B] transition-all duration-300" style="width:0%"></div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== 主内容舞台 ==================== -->
+  <main class="flex-1 px-4 py-3.5 flex flex-col gap-4 overflow-y-auto">
+
+    <!-- ==================== 一级大类 1：【📜 江湖历练】 ==================== -->
+    <section id="tab-adventure" class="flex flex-col gap-3.5">
+      <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1">
+        <button data-subtab="adv-story" class="adv-subtab-btn subtab-pill subtab-active">✨ 实时奇遇冒险</button>
+        <button data-subtab="adv-map" class="adv-subtab-btn subtab-pill subtab-inactive">🗺️ 上下三界舆图</button>
+        <button data-subtab="adv-sect" class="adv-subtab-btn subtab-pill subtab-inactive">🏯 宗门与万劫渊</button>
+      </div>
+
+      <!-- 1.1 实时奇遇冒险主舞台 -->
+      <div id="subtab-adv-story" class="flex flex-col gap-3.5">
+        <div class="paper-card p-5 flex flex-col gap-3">
+          <div class="flex items-center justify-between border-b border-[#E2DEC9] pb-2">
+            <div class="flex items-center gap-2">
+              <span class="text-[1.1rem]">📜</span>
+              <h2 id="worldEraTitle" class="text-[1.1rem] font-extrabold text-[#2E5A44]">太虚天道卷轴</h2>
+            </div>
+            <span id="aiEngineStatusBadge" class="px-2.5 py-0.5 rounded-full text-[0.78rem] font-bold bg-[#E8F0EB] text-[#2E5A44]">天道就绪</span>
+          </div>
+          <div id="storyScrollBox" class="text-[1.03rem] leading-[1.8] text-[#1F2421] whitespace-pre-line min-h-[180px] max-h-[340px] overflow-y-auto pr-1"></div>
+          <div id="lastDeltaBanner" class="hidden rounded-xl bg-[#FDF8EC] border border-[#B8860B]/30 px-3.5 py-2 text-[0.9rem] font-bold text-[#8B6508]"></div>
+        </div>
+
+        <div class="paper-card p-5 flex flex-col gap-3">
+          <div class="flex items-center justify-between">
+            <span class="text-[1rem] font-extrabold text-[#1F2421]">⚡ 天道推演抉择：</span>
+            <button id="breakthroughQuickBtn" class="hidden px-3 py-1 rounded-lg bg-[#B8860B] text-white text-[0.85rem] font-bold animate-pulse">🔥 逆天渡劫</button>
+          </div>
+          <div id="choicesContainer" class="flex flex-col gap-2.5"></div>
+          <div class="pt-2 border-t border-[#E2DEC9] flex flex-col gap-2">
+            <label for="freeActionInput" class="text-[0.88rem] font-bold text-[#5A655E]">✍️ 或自由输入您的任意举动（由 DeepSeek 实时判定因果）：</label>
+            <div class="flex gap-2">
+              <input id="freeActionInput" type="text" placeholder="如：布阵困敌、搜刮密室、用毒暗算、闭目悟道..." class="flex-1 px-3.5 py-2.5 rounded-xl border border-[#D5CFB8] bg-[#FAF9F5]" />
+              <button id="freeActionSubmitBtn" class="btn-pine px-5 shrink-0">执行</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 1.2 上下三界舆图 -->
+      <div id="subtab-adv-map" class="hidden flex flex-col gap-3.5">
+        <div class="paper-card p-5 flex flex-col gap-3.5">
+          <div class="flex items-center justify-between flex-wrap gap-2">
+            <div>
+              <h2 class="text-[1.15rem] font-extrabold text-[#2E5A44]">🗺️ 诸天三界舆图</h2>
+              <p class="text-[0.88rem] text-[#5A655E]">当前所在位面：<strong id="currentPlaneLabel" class="text-[#B8860B]">凡人下界</strong></p>
+            </div>
+            <button id="aiDiscoverMapBtn" class="btn-bronze px-3.5 py-2 text-[0.86rem]">✨ 天道推演新秘境</button>
+          </div>
+          <div class="grid grid-cols-3 gap-2">
+            <button data-plane="凡人下界" class="plane-switch-btn py-2 rounded-xl font-bold text-[0.88rem] bg-[#2E5A44] text-white">凡人下界</button>
+            <button data-plane="古灵中界" class="plane-switch-btn py-2 rounded-xl font-bold text-[0.88rem] bg-[#EAE6D7] text-[#1F2421]">古灵中界</button>
+            <button data-plane="太虚仙界" class="plane-switch-btn py-2 rounded-xl font-bold text-[0.88rem] bg-[#EAE6D7] text-[#1F2421]">太虚仙界</button>
+          </div>
+          <div id="worldMapGrid" class="grid grid-cols-1 gap-3"></div>
+        </div>
+      </div>
+
+      <!-- 1.3 宗门与万劫渊 -->
+      <div id="subtab-adv-sect" class="hidden flex flex-col gap-3.5">
+        <div class="paper-card p-5 flex flex-col gap-3.5">
+          <div class="flex items-center justify-between border-b border-[#E2DEC9] pb-3">
+            <div>
+              <h2 id="sectNameTitle" class="text-[1.15rem] font-extrabold text-[#2E5A44]">🏯 宗门势力与试炼</h2>
+              <p class="text-[0.88rem] text-[#5A655E] mt-0.5">所有宗门交互与秘境试炼均由 DeepSeek 实时推演战况与奇遇</p>
+            </div>
+            <span id="towerFloorBadge" class="px-3 py-1 rounded-xl bg-[#FDF8EC] text-[#B8860B] font-bold text-[0.85rem] border border-[#B8860B]/40">万劫渊 第1层</span>
+          </div>
+          <div class="grid grid-cols-1 gap-2.5">
+            <button id="sectMissionBtn" class="btn-pine w-full">📜 接取宗门/江湖悬赏历练（AI 实时出题）</button>
+            <button id="challengeTowerBtn" class="btn-bronze w-full">🗼 深入万劫渊死斗试炼（AI 判定胜负与机缘）</button>
+            <div class="grid grid-cols-2 gap-2.5">
+              <button id="sectMeditateBtn" class="px-4 py-3 rounded-xl bg-[#EAE6D7] text-[#1F2421] font-bold">🍵 灵脉闭关调息</button>
+              <button id="sectBreakBtn" class="px-4 py-3 rounded-xl bg-[#FDF8EC] border border-[#B8860B] text-[#B8860B] font-bold">⚡ 冲击境界瓶颈</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 一级大类 2：【🧘 角色洞府】 ==================== -->
+    <section id="tab-cave" class="hidden flex flex-col gap-3.5">
+      <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1">
+        <button data-subtab="cave-stats" class="cave-subtab-btn subtab-pill subtab-active">📊 命格与根骨</button>
+        <button data-subtab="cave-bag" class="cave-subtab-btn subtab-pill subtab-inactive">🎒 储物纳戒(分类堆叠)</button>
+        <button data-subtab="cave-skills" class="cave-subtab-btn subtab-pill subtab-inactive">📘 功法与悟道</button>
+        <button data-subtab="cave-alchemy" class="cave-subtab-btn subtab-pill subtab-inactive">🔥 造化丹器炉</button>
+      </div>
+
+      <!-- 2.1 命格与根骨（极大丰富可视化属性） -->
+      <div id="subtab-cave-stats" class="flex flex-col gap-3.5">
+        <div class="paper-card p-5 flex flex-col gap-4">
+          <div class="flex items-start justify-between border-b border-[#E2DEC9] pb-3">
+            <div>
+              <h2 id="cavePlayerTitle" class="text-[1.2rem] font-extrabold text-[#2E5A44]">求道者</h2>
+              <p id="caveOriginText" class="text-[0.88rem] text-[#5A655E] mt-0.5">出身：寒门学子 ｜ 主修：万法皆修</p>
+            </div>
+            <button id="reincarnateNowBtn" class="px-3 py-1.5 rounded-xl bg-[#FDF8EC] border border-[#B8860B] text-[#B8860B] font-bold text-[0.82rem] active:scale-95">
+              🌀 兵解结算此世
+            </button>
+          </div>
+
+          <!-- 寿元与道心正邪可视化条 -->
+          <div class="flex flex-col gap-2.5 bg-[#F6F4EC] p-3.5 rounded-xl border border-[#E2DEC9]">
+            <div>
+              <div class="flex justify-between text-[0.84rem] font-bold mb-1">
+                <span>⏳ 寿元大限</span>
+                <span id="statLifespanText" class="text-[#2E5A44]">18 / 100 载</span>
+              </div>
+              <div class="w-full h-2.5 bg-[#E2DEC9] rounded-full overflow-hidden">
+                <div id="statLifespanBar" class="h-full bg-[#2E5A44]" style="width:18%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-[0.84rem] font-bold mb-1">
+                <span>☯️ 道心善恶倾向（正道 ⟷ 魔煞）</span>
+                <span id="statKarmaText" class="text-[#B8860B]">中立澄明 (0)</span>
+              </div>
+              <div class="w-full h-2.5 bg-gradient-to-r from-purple-700 via-amber-400 to-emerald-600 rounded-full relative">
+                <div id="statKarmaDot" class="w-3.5 h-3.5 bg-white border-2 border-[#1F2421] rounded-full absolute -top-0.5 transition-all" style="left:50%"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 六维核心战斗与天道属性 -->
+          <div class="grid grid-cols-3 gap-2.5 text-center">
+            <div class="p-2.5 rounded-xl bg-[#F6F4EC] border border-[#E2DEC9]">
+              <div class="text-[0.78rem] text-[#5A655E]">⚔️ 攻伐战力</div>
+              <div id="statAtkVal" class="text-[1.15rem] font-extrabold text-[#1F2421]">50</div>
+            </div>
+            <div class="p-2.5 rounded-xl bg-[#F6F4EC] border border-[#E2DEC9]">
+              <div class="text-[0.78rem] text-[#5A655E]">🛡️ 护体罡气</div>
+              <div id="statDefVal" class="text-[1.15rem] font-extrabold text-[#1F2421]">30</div>
+            </div>
+            <div class="p-2.5 rounded-xl bg-[#F6F4EC] border border-[#E2DEC9]">
+              <div class="text-[0.78rem] text-[#5A655E]">❤️ 气血上限</div>
+              <div id="statMaxHpVal" class="text-[1.15rem] font-extrabold text-[#2E5A44]">300</div>
+            </div>
+            <div class="p-2.5 rounded-xl bg-[#F6F4EC] border border-[#E2DEC9]">
+              <div class="text-[0.78rem] text-[#5A655E]">🌟 先天气运</div>
+              <div id="statLuckVal" class="text-[1.15rem] font-extrabold text-[#B8860B]">80</div>
+            </div>
+            <div class="p-2.5 rounded-xl bg-[#F6F4EC] border border-[#E2DEC9]">
+              <div class="text-[0.78rem] text-[#5A655E]">💡 悟性灵光</div>
+              <div id="statInsightVal" class="text-[1.15rem] font-extrabold text-[#2E5A44]">80</div>
+            </div>
+            <div class="p-2.5 rounded-xl bg-[#F6F4EC] border border-[#E2DEC9]">
+              <div class="text-[0.78rem] text-[#5A655E]">👁️ 太虚神识</div>
+              <div id="statSpiritVal" class="text-[1.15rem] font-extrabold text-[#1F2421]">60</div>
+            </div>
+          </div>
+
+          <!-- 五行灵根亲和度可视化 -->
+          <div class="p-3.5 rounded-xl bg-[#F6F4EC] border border-[#E2DEC9]">
+            <div class="text-[0.88rem] font-extrabold text-[#1F2421] mb-2">🌈 先天五行灵根亲和度</div>
+            <div id="fiveElementsBars" class="grid grid-cols-5 gap-2 text-center text-[0.78rem] font-bold"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2.2 储物纳戒（四大唯一装备槽 + 一键最强套装 + 分类折叠堆叠） -->
+      <div id="subtab-cave-bag" class="hidden flex flex-col gap-3.5">
+        <div class="paper-card p-5 flex flex-col gap-3.5">
+          <div class="flex items-center justify-between flex-wrap gap-2">
+            <div>
+              <h2 class="text-[1.12rem] font-extrabold text-[#2E5A44]">🛡️ 当前穿戴四象神装（同部位唯一）</h2>
+              <p class="text-[0.82rem] text-[#5A655E]">每个部位仅限穿戴1件，点击槽位可卸下</p>
+            </div>
+            <button id="autoEquipBestBtn" class="btn-bronze px-3.5 py-2 text-[0.86rem]">
+              ⚡ 一键穿戴最强套装
+            </button>
+          </div>
+
+          <!-- 4 个互斥穿戴槽位展示 -->
+          <div id="equippedSlotsGrid" class="grid grid-cols-2 gap-2.5"></div>
+        </div>
+
+        <!-- 分类折叠与同名堆叠背包列表 -->
+        <div class="paper-card p-5 flex flex-col gap-3">
+          <div class="flex items-center justify-between">
+            <h3 class="text-[1.08rem] font-extrabold text-[#2E5A44]">🎒 储物纳戒（同名自动堆叠 · 点击分类展开）</h3>
+            <span id="bagTotalKindsBadge" class="text-[0.84rem] font-bold text-[#5A655E]">0 类</span>
+          </div>
+          <div id="categorizedBagContainer" class="flex flex-col gap-2.5"></div>
+        </div>
+      </div>
+
+      <!-- 2.3 功法神通与自创悟道 -->
+      <div id="subtab-cave-skills" class="hidden flex flex-col gap-3.5">
+        <div class="paper-card p-5 flex flex-col gap-3.5">
+          <div class="flex items-center justify-between">
+            <h2 class="text-[1.12rem] font-extrabold text-[#2E5A44]">📘 所修功法神通</h2>
+            <button id="aiComprehendSkillBtn" class="btn-pine px-3.5 py-2 text-[0.86rem]">✨ 消耗100灵石闭关自创/顿悟</button>
+          </div>
+          <div id="skillsGrid" class="flex flex-col gap-2.5"></div>
+        </div>
+      </div>
+
+      <!-- 2.4 造化丹器炉（全由 DeepSeek 推演结果） -->
+      <div id="subtab-cave-alchemy" class="hidden flex flex-col gap-3.5">
+        <div class="paper-card p-5 flex flex-col gap-4">
+          <div>
+            <h2 class="text-[1.15rem] font-extrabold text-[#2E5A44]">🔥 造化烘炉 · AI 实时炼丹铸器</h2>
+            <p class="text-[0.88rem] text-[#5A655E]">输入您的炼制构想，由 DeepSeek 结合您的悟性与气运实时裁决出炉品阶（偶有炸炉或神品异象）！</p>
+          </div>
+          <div class="p-4 rounded-xl bg-[#F6F4EC] border border-[#E2DEC9] flex flex-col gap-2.5">
+            <div class="font-extrabold text-[1rem] text-[#1F2421]">💊 开炉炼丹（消耗 60 灵石）</div>
+            <input id="customPillInput" type="text" placeholder="输入想炼制的丹药方向（如：延寿丹、破障金丹）" class="w-full px-3.5 py-2.5 rounded-xl border border-[#D5CFB8] bg-white" />
+            <button id="aiCraftPillBtn" class="btn-pine w-full">催动真火炼丹 (60 灵石)</button>
+          </div>
+          <div class="p-4 rounded-xl bg-[#FDF8EC] border border-[#B8860B]/40 flex flex-col gap-2.5">
+            <div class="font-extrabold text-[1rem] text-[#8B6508]">⚒️ 祭炼法宝防具（消耗 120 灵石）</div>
+            <div class="grid grid-cols-2 gap-2">
+              <select id="customEquipSlotSelect" class="px-3 py-2.5 rounded-xl border border-[#D5CFB8] bg-white font-bold">
+                <option value="weapon">⚔️ 兵器法宝</option>
+                <option value="helm">🪖 冠冕头饰</option>
+                <option value="armor">🥋 道袍护甲</option>
+                <option value="relic">💍 奇珍异宝</option>
+              </select>
+              <input id="customEquipNameInput" type="text" placeholder="赐名（如：玄天冠）" class="px-3 py-2.5 rounded-xl border border-[#D5CFB8] bg-white" />
+            </div>
+            <button id="aiCraftEquipBtn" class="btn-bronze w-full">引动天地灵气铸造 (120 灵石)</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 一级大类 3：【🕸️ 因果记忆 (含轮回往世录)】 ==================== -->
+    <section id="tab-memory" class="hidden flex flex-col gap-3.5">
+      <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1">
+        <button data-subtab="mem-npcs" class="mem-subtab-btn subtab-pill subtab-active">👥 结识人物志(可互动)</button>
+        <button data-subtab="mem-pastlives" class="mem-subtab-btn subtab-pill subtab-inactive">🌀 轮回往世录(回忆录)</button>
+        <button data-subtab="mem-events" class="mem-subtab-btn subtab-pill subtab-inactive">📖 本世大事记</button>
+        <button data-subtab="mem-factions" class="mem-subtab-btn subtab-pill subtab-inactive">⚖️ 宗门恩怨录</button>
+      </div>
+
+      <!-- 3.1 结识人物志（带实时 AI 互动按钮） -->
+      <div id="subtab-mem-npcs" class="flex flex-col gap-3.5">
+        <div class="paper-card p-5">
+          <h2 class="text-[1.12rem] font-extrabold text-[#2E5A44] mb-1">👥 诸天人物谱（点击按钮直接由 AI 演绎对手戏）</h2>
+          <p class="text-[0.86rem] text-[#5A655E] mb-3.5">与故人论道、切磋、赠礼或袭杀，全部实时触发因果剧情！</p>
+          <div id="npcListContainer" class="flex flex-col gap-3"></div>
+        </div>
+      </div>
+
+      <!-- 3.2 轮回往世录（历代轮回生平总结与回忆） -->
+      <div id="subtab-mem-pastlives" class="hidden flex flex-col gap-3.5">
+        <div class="paper-card p-5">
+          <div class="flex items-center justify-between mb-2">
+            <h2 class="text-[1.12rem] font-extrabold text-[#2E5A44]">🌀 百世轮回碑林（历代传记回忆）</h2>
+            <span id="legacyPointsBadge" class="px-2.5 py-0.5 rounded-full bg-[#FDF8EC] text-[#B8860B] font-bold text-[0.82rem] border border-[#B8860B]/40">轮回底蕴 +0</span>
+          </div>
+          <p class="text-[0.86rem] text-[#5A655E] mb-3.5">每一世陨落或飞升结算后，皆在此立碑铭刻生平传记，供您随时凭吊追忆。</p>
+          <div id="pastLivesContainer" class="flex flex-col gap-3"></div>
+        </div>
+      </div>
+
+      <!-- 3.3 本世大事记 -->
+      <div id="subtab-mem-events" class="hidden flex flex-col gap-3.5">
+        <div class="paper-card p-5">
+          <div class="flex items-center justify-between mb-2">
+            <h2 class="text-[1.12rem] font-extrabold text-[#2E5A44]">📖 本世因果大事记 (RAG 记忆源)</h2>
+            <span id="ragFactCountBadge" class="text-[0.84rem] font-bold text-[#B8860B]">0 条</span>
+          </div>
+          <div id="worldFactsContainer" class="flex flex-col gap-2.5"></div>
+        </div>
+      </div>
+
+      <!-- 3.4 宗门恩怨录 -->
+      <div id="subtab-mem-factions" class="hidden flex flex-col gap-3.5">
+        <div class="paper-card p-5">
+          <h2 class="text-[1.12rem] font-extrabold text-[#2E5A44] mb-3">⚖️ 诸天万宗声望与因果</h2>
+          <div id="factionsContainer" class="flex flex-col gap-2.5"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 一级大类 4：【⚙️ 天道设置 (字号滑块/OTA热更/改档)】 ==================== -->
+    <section id="tab-settings" class="hidden flex flex-col gap-3.5">
+      <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1">
+        <button data-subtab="set-api" class="set-subtab-btn subtab-pill subtab-active">🔑 灵枢/字号/云端热更</button>
+        <button data-subtab="set-save" class="set-subtab-btn subtab-pill subtab-inactive">💾 独立存档导出与改档</button>
+      </div>
+
+      <!-- 4.1 字号滑块 (13~20px) + OTA 云端热更新 + DeepSeek API -->
+      <div id="subtab-set-api" class="flex flex-col gap-3.5">
+        <!-- 字体大小拖动条 -->
+        <div class="paper-card p-5 flex flex-col gap-2.5">
+          <div class="flex items-center justify-between">
+            <span class="font-extrabold text-[1.05rem] text-[#2E5A44]">🔠 护眼全局字号调节 (13px ~ 20px)</span>
+            <span id="fontSizeValLabel" class="px-2.5 py-0.5 rounded-lg bg-[#E8F0EB] text-[#2E5A44] font-extrabold">17px</span>
+          </div>
+          <input id="fontSizeSlider" type="range" min="13" max="20" step="1" value="17" class="w-full accent-[#2E5A44] h-2.5 bg-[#E2DEC9] rounded-lg cursor-pointer" />
+          <div class="flex justify-between text-[0.78rem] text-[#5A655E]">
+            <span>紧凑 (13px)</span>
+            <span>标准推荐 (17px)</span>
+            <span>超大护眼 (20px)</span>
+          </div>
+        </div>
+
+        <!-- 儿子终端推送 -> 老爸一键 OTA 热更新 -->
+        <div class="paper-card p-5 flex flex-col gap-3 border-2 border-[#B8860B]/40">
+          <div>
+            <h3 class="text-[1.08rem] font-extrabold text-[#8B6508]">☁️ 云端一键热更新（免重装自动升级）</h3>
+            <p class="text-[0.84rem] text-[#5A655E] mt-0.5">填入您在 GitHub Gist Raw / Pages / Netlify 部署的最新 HTML 直链，点击按钮即可保留全部存档原地升级！</p>
+          </div>
+          <input id="otaUpdateUrlInput" type="text" placeholder="https://raw.githubusercontent.com/.../index.html" class="w-full px-3.5 py-2.5 rounded-xl border border-[#D5CFB8] bg-[#FAF9F5]" />
+          <button id="triggerOtaUpdateBtn" class="btn-bronze w-full">🔄 立即保留存档并拉取云端新版本</button>
+        </div>
+
+        <!-- DeepSeek API 配置 -->
+        <div class="paper-card p-5 flex flex-col gap-3">
+          <h3 class="text-[1.08rem] font-extrabold text-[#2E5A44]">🔑 DeepSeek 天道大模型配置</h3>
+          <div>
+            <label class="block text-[0.86rem] font-bold mb-1">接口地址 (API Endpoint)：</label>
+            <input id="cfgApiEndpointInput" type="text" value="https://api.deepseek.com/chat/completions" class="w-full px-3.5 py-2.5 rounded-xl border border-[#D5CFB8] bg-[#FAF9F5]" />
+          </div>
+          <div>
+            <label class="block text-[0.86rem] font-bold mb-1">模型名称 (Model)：</label>
+            <input id="cfgApiModelInput" type="text" value="deepseek-chat" class="w-full px-3.5 py-2.5 rounded-xl border border-[#D5CFB8] bg-[#FAF9F5]" />
+          </div>
+          <div>
+            <label class="block text-[0.86rem] font-bold mb-1">DeepSeek API Key 密钥：</label>
+            <input id="cfgApiKeyInput" type="password" placeholder="sk-..." class="w-full px-3.5 py-2.5 rounded-xl border border-[#D5CFB8] bg-[#FAF9F5]" />
+          </div>
+          <button id="saveApiConfigBtn" class="btn-pine w-full">💾 保存灵枢配置</button>
+        </div>
+      </div>
+
+      <!-- 4.2 独立存档导出/导入与在线改档 -->
+      <div id="subtab-set-save" class="hidden flex flex-col gap-3.5">
+        <div class="paper-card p-5 flex flex-col gap-3.5">
+          <h2 class="text-[1.12rem] font-extrabold text-[#2E5A44]">💾 独立 JSON 存档导出/导入（支持改档开挂）</h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+            <button id="exportJsonFileBtn" class="btn-pine w-full">📤 导出 .json 存档文件</button>
+            <label class="btn-bronze w-full flex items-center justify-center cursor-pointer">
+              📥 导入 .json 存档文件
+              <input id="importJsonFileInput" type="file" accept=".json,application/json" class="hidden" />
+            </label>
+          </div>
+
+          <div class="border-t border-[#E2DEC9] pt-3">
+            <div class="font-extrabold text-[0.95rem] mb-2">🗂️ 本地三才快捷存档槽</div>
+            <div id="saveSlotsContainer" class="flex flex-col gap-2"></div>
+          </div>
+
+          <div class="border-t border-[#E2DEC9] pt-3 flex flex-col gap-2">
+            <div class="flex justify-between items-center">
+              <span class="font-extrabold text-[0.92rem]">🛠️ 明文 JSON 改档器（改完点应用立即生效）：</span>
+              <button id="refreshRawJsonBtn" class="text-[0.84rem] font-bold text-[#2E5A44] underline">刷新数据</button>
+            </div>
+            <textarea id="rawSaveJsonTextarea" rows="6" class="w-full p-3 rounded-xl border border-[#D5CFB8] bg-[#FAF9F5] font-mono text-[0.8rem]"></textarea>
+            <div class="grid grid-cols-2 gap-2.5">
+              <button id="applyRawJsonBtn" class="btn-pine w-full">✨ 应用修改后的存档</button>
+              <button id="openNewLifeModalBtn" class="px-4 py-2.5 rounded-xl border border-[#B8860B] text-[#B8860B] font-bold bg-[#FDF8EC]">🌱 开启新轮回创角</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== 底部四大主导航栏 ==================== -->
+  <nav class="sticky bottom-0 z-30 bg-[#FFFFFF]/95 backdrop-blur-md border-t border-[#E2DEC9] px-3 pt-1.5 pb-safe">
+    <div class="grid grid-cols-4 gap-2">
+      <button data-maintab="tab-adventure" class="main-nav-btn main-nav-active flex flex-col items-center justify-center py-1">
+        <span class="text-[1.25rem] leading-none">📜</span>
+        <span class="text-[0.84rem] mt-1">江湖历练</span>
+      </button>
+      <button data-maintab="tab-cave" class="main-nav-btn flex flex-col items-center justify-center py-1">
+        <span class="text-[1.25rem] leading-none">🧘</span>
+        <span class="text-[0.84rem] mt-1">角色洞府</span>
+      </button>
+      <button data-maintab="tab-memory" class="main-nav-btn flex flex-col items-center justify-center py-1">
+        <span class="text-[1.25rem] leading-none">🕸️</span>
+        <span class="text-[0.84rem] mt-1">因果记忆</span>
+      </button>
+      <button data-maintab="tab-settings" class="main-nav-btn flex flex-col items-center justify-center py-1">
+        <span class="text-[1.25rem] leading-none">⚙️</span>
+        <span class="text-[0.84rem] mt-1">天道设置</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ==================== 弹窗 1：物品/功法详情 Modal ==================== -->
+  <div id="itemDetailModal" class="fixed inset-0 z-50 bg-black/55 hidden items-center justify-center p-4">
+    <div id="itemDetailCard" class="paper-card p-5 w-full max-w-md flex flex-col gap-3.5">
+      <div class="flex items-start justify-between border-b border-[#E2DEC9] pb-2.5">
+        <div>
+          <span id="modalItemRarity" class="px-2.5 py-0.5 rounded-full text-[0.8rem] font-bold bg-[#FDF8EC] text-[#B8860B] border border-[#B8860B]/40">灵品</span>
+          <h3 id="modalItemTitle" class="text-[1.2rem] font-extrabold text-[#2E5A44] mt-1">宝物名称</h3>
+        </div>
+        <button id="closeDetailModalBtn" class="w-9 h-9 rounded-full bg-[#F6F4EC] text-[#1F2421] font-bold">✕</button>
+      </div>
+      <div id="modalItemBonus" class="p-3 rounded-xl bg-[#F6F4EC] text-[#2E5A44] font-bold text-[0.95rem]"></div>
+      <p id="modalItemDesc" class="text-[0.95rem] text-[#1F2421] leading-relaxed"></p>
+      <div class="grid grid-cols-2 gap-2.5 pt-1">
+        <button id="modalSecondaryBtn" class="px-4 py-2.5 rounded-xl bg-[#EAE6D7] text-[#1F2421] font-bold">收起</button>
+        <button id="modalPrimaryActionBtn" class="btn-pine w-full">穿戴 / 使用</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 弹窗 2：开局自主创角与天道加点 Modal ==================== -->
+  <div id="creationModal" class="fixed inset-0 z-50 bg-black/65 hidden items-center justify-center p-4 overflow-y-auto">
+    <div class="paper-card p-5 w-full max-w-md flex flex-col gap-3.5 my-auto max-h-[92vh] overflow-y-auto">
+      <div class="border-b border-[#E2DEC9] pb-2.5 flex items-center justify-between">
+        <div>
+          <h2 id="creationModalTitle" class="text-[1.22rem] font-extrabold text-[#2E5A44]">🌌 诸天轮回 · 降世创角</h2>
+          <p class="text-[0.82rem] text-[#5A655E]">不设固定模板！设定完成后 DeepSeek 将为您实时生成此世专属天地</p>
+        </div>
+        <button id="closeCreationModalBtn" class="w-8 h-8 rounded-full bg-[#EAE6D7] font-bold text-[0.9rem]">✕</button>
+      </div>
+
+      <!-- 姓名、性别、年龄 -->
+      <div class="grid grid-cols-3 gap-2">
+        <div class="col-span-2">
+          <label class="text-[0.82rem] font-bold text-[#5A655E]">名号 / 姓名：</label>
+          <input id="createNameInput" type="text" value="林玄" class="w-full px-3 py-2 rounded-xl border border-[#D5CFB8] bg-[#FAF9F5]" />
+        </div>
+        <div>
+          <label class="text-[0.82rem] font-bold text-[#5A655E]">性别：</label>
+          <select id="createGenderSelect" class="w-full px-2 py-2 rounded-xl border border-[#D5CFB8] bg-[#FAF9F5] font-bold">
+            <option value="男">乾男</option>
+            <option value="女">坤女</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- 出身背景（可选可自填） -->
+      <div>
+        <label class="text-[0.82rem] font-bold text-[#5A655E]">降世出身背景（决定初始人脉与际遇，可自由修改）：</label>
+        <input id="createOriginInput" type="text" value="没落修真家族庶子，偶得一枚神秘残玉" class="w-full px-3 py-2 rounded-xl border border-[#D5CFB8] bg-[#FAF9F5] mt-1" />
+        <div class="flex gap-1.5 flex-wrap mt-1.5">
+          <button type="button" data-origin="山村采药少年，误食千年朱果开启灵智" class="origin-preset-btn text-[0.76rem] px-2 py-1 rounded bg-[#EAE6D7]">采药少年</button>
+          <button type="button" data-origin="王朝落魄皇族，携传国古卷踏上求仙路" class="origin-preset-btn text-[0.76rem] px-2 py-1 rounded bg-[#EAE6D7]">落魄皇族</button>
+          <button type="button" data-origin="上古大能兵解转世，神魂深处藏有前世道果" class="origin-preset-btn text-[0.76rem] px-2 py-1 rounded bg-[#EAE6D7]">大能转世</button>
+          <button type="button" data-origin="塞外刀客，以凡人武道极致逆伐修真者" class="origin-preset-btn text-[0.76rem] px-2 py-1 rounded bg-[#EAE6D7]">凡尘刀客</button>
+        </div>
+      </div>
+
+      <!-- 主修大道志向（彻底打破单一剑修限制） -->
+      <div>
+        <label class="text-[0.82rem] font-bold text-[#5A655E]">主修大道方向（可自由输入任何流派）：</label>
+        <input id="createPathInput" type="text" value="丹器双绝·逍遥散仙" class="w-full px-3 py-2 rounded-xl border border-[#D5CFB8] bg-[#FAF9F5] mt-1" />
+        <div class="flex gap-1.5 flex-wrap mt-1.5">
+          <button type="button" data-path="奇门阵道与符箓天师" class="path-preset-btn text-[0.76rem] px-2 py-1 rounded bg-[#E8F0EB] text-[#2E5A44]">阵法符箓</button>
+          <button type="button" data-path="太古不灭肉身成圣(体修)" class="path-preset-btn text-[0.76rem] px-2 py-1 rounded bg-[#E8F0EB] text-[#2E5A44]">霸道体修</button>
+          <button type="button" data-path="万兽御灵与草木丹道" class="path-preset-btn text-[0.76rem] px-2 py-1 rounded bg-[#E8F0EB] text-[#2E5A44]">御兽丹师</button>
+          <button type="button" data-path="浩然儒道·言出法随" class="path-preset-btn text-[0.76rem] px-2 py-1 rounded bg-[#E8F0EB] text-[#2E5A44]">浩然儒修</button>
+          <button type="button" data-path="吞天魔功·杀伐入道" class="path-preset-btn text-[0.76rem] px-2 py-1 rounded bg-[#E8F0EB] text-[#2E5A44]">魔道巨擘</button>
+          <button type="button" data-path="太虚无情剑道" class="path-preset-btn text-[0.76rem] px-2 py-1 rounded bg-[#E8F0EB] text-[#2E5A44]">无上剑道</button>
+        </div>
+      </div>
+
+      <!-- 天道属性点数自由分配 -->
+      <div class="p-3.5 rounded-xl bg-[#F6F4EC] border border-[#E2DEC9] flex flex-col gap-2">
+        <div class="flex items-center justify-between">
+          <span class="font-extrabold text-[0.92rem] text-[#2E5A44]">🌟 先天属性点分配</span>
+          <span class="px-2.5 py-0.5 rounded-full bg-[#B8860B] text-white font-bold text-[0.82rem]">剩余可用：<strong id="remainPointsText">10</strong> 点</span>
+        </div>
+        <div id="allocStatsContainer" class="flex flex-col gap-2 mt-1"></div>
+      </div>
+
+      <button id="confirmCreateWorldBtn" class="btn-pine w-full py-3">
+        ✨ 敕令天道：生成此世万象并踏入江湖
+      </button>
+    </div>
+  </div>
+  <!-- ==================== 弹窗 3：《鬼谷八荒》式天道更新日志 Modal ==================== -->
+  <div id="changelogModal" class="fixed inset-0 z-50 bg-black/65 hidden items-center justify-center p-4">
+    <div id="changelogCard" class="paper-card p-5 w-full max-w-md flex flex-col gap-3.5 max-h-[86vh]">
+      <div class="flex items-start justify-between border-b border-[#E2DEC9] pb-2.5">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-[1.2rem]">📜</span>
+            <h2 class="text-[1.2rem] font-extrabold text-[#2E5A44]">太虚天道演化录 · 更新公告</h2>
+          </div>
+          <p class="text-[0.82rem] text-[#5A655E] mt-0.5">记录自创世以来每一次天道规则演进与修缮明细</p>
+        </div>
+        <button id="closeChangelogModalBtn" class="w-8 h-8 rounded-full bg-[#EAE6D7] text-[#1F2421] font-bold">✕</button>
+      </div>
+
+      <!-- 鬼谷八荒式点列滚动区 -->
+      <div id="changelogListBox" class="flex-1 overflow-y-auto pr-1 flex flex-col gap-4"></div>
+
+      <button id="confirmChangelogBtn" class="btn-pine w-full py-2.5">
+        🙏 谨遵天道法令（关闭公告）
+      </button>
+    </div>
+  </div>
+
+  <!-- 全局轻提示 Toast -->
+  <div id="toastBox" class="fixed top-20 left-1/2 -translate-x-1/2 z-50 hidden px-5 py-3 rounded-2xl bg-[#2E5A44] text-white font-bold text-[0.95rem] shadow-xl"></div>
+
+  <!-- ==================== 核心脚本区 ==================== -->
+  <script>
+// 终极方案：穿透 Shadow DOM 与 html 根节点，彻底强杀 Netlify 广告浮窗
+(function killNetlifyBadge() {
+  const clean = () => {
+    // 1. 扫描页面上所有元素（包括挂在 body 外面的 html 子元素）
+    document.querySelectorAll('*').forEach(el => {
+      // 跳过咱们自己的主体结构
+      if (['HTML', 'HEAD', 'BODY', 'MAIN', 'HEADER', 'NAV', 'SECTION', 'SCRIPT', 'STYLE'].includes(el.tagName)) return;
+      if (el.id && (el.id.startsWith('tab-') || el.id.includes('Modal') || el.id.includes('Card') || el.id === 'toastBox')) return;
+      // 检查普通文本或链接特征
+      const htmlStr = (el.outerHTML || '').toLowerCase();
+      const textStr = (el.innerText || '');
+      if (
+        textStr.includes('Build your own site with Netlify') ||
+        textStr.includes('Drop a site you already have') ||
+        htmlStr.includes('utm_source=netlify_badge') ||
+        htmlStr.includes('app.netlify.com/drop')
+      ) {
+        // 找到最外层的广告宿主容器并直接物理删除
+        let target = el;
+        while (target.parentElement && target.parentElement !== document.body && target.parentElement !== document.documentElement) {
+          target = target.parentElement;
+        }
+        target.style.setProperty('display', 'none', 'important');
+        target.remove();
+      }
+      // 2. 穿透检查 Shadow DOM（Netlify 最新的隐藏寄生技术）
+      if (el.shadowRoot) {
+        const shadowText = el.shadowRoot.innerHTML || '';
+        if (shadowText.includes('netlify') || shadowText.includes('Build your own site')) {
+          el.style.setProperty('display', 'none', 'important');
+          el.remove();
+        }
+      }
+    });
+  };
+  clean();
+  setInterval(clean, 300);
+  new MutationObserver(clean).observe(document.documentElement, { childList: true, subtree: true });
+})();
+
+/********************************************************************
+ * Module 1: Config & Constants（十二大境界、装备槽位定义、离线高容错兜底池）
+ ********************************************************************/
+const GameConfig = {
+  STORAGE_MAIN_KEY: 'TAIXU_V6_MAIN_SAVE',
+  STORAGE_SLOT_PREFIX: 'TAIXU_V6_SLOT_',
+  STORAGE_API_KEY: 'TAIXU_V6_API_CFG',
+  STORAGE_PREF_KEY: 'TAIXU_V6_UI_PREF',
+
+  // 十二大通用修真境界（不绑定剑修，适配丹/阵/体/法/儒/魔一切流派）
+  REALMS: [
+    { index: 0,  name: '凡胎引气', maxExp: 180,    lifespan: 100,  hpAdd: 120, atkAdd: 22,  defAdd: 14 },
+    { index: 1,  name: '百脉筑基', maxExp: 450,    lifespan: 160,  hpAdd: 260, atkAdd: 50,  defAdd: 32 },
+    { index: 2,  name: '紫府凝丹', maxExp: 1100,   lifespan: 300,  hpAdd: 580, atkAdd: 110, defAdd: 70 },
+    { index: 3,  name: '元婴显圣', maxExp: 2600,   lifespan: 600,  hpAdd: 1200,atkAdd: 240, defAdd: 150 },
+    { index: 4,  name: '化神通玄', maxExp: 6000,   lifespan: 1200, hpAdd: 2600,atkAdd: 520, defAdd: 320 },
+    { index: 5,  name: '炼虚合道', maxExp: 14000,  lifespan: 2500, hpAdd: 5500,atkAdd: 1100,defAdd: 680 },
+    { index: 6,  name: '大乘渡劫', maxExp: 32000,  lifespan: 5000, hpAdd: 12000,atkAdd:2400,defAdd: 1500 },
+    { index: 7,  name: '地仙尊者', maxExp: 75000,  lifespan: 10000,hpAdd: 26000,atkAdd:5200,defAdd: 3200 },
+    { index: 8,  name: '太乙天仙', maxExp: 160000, lifespan: 30000,hpAdd: 55000,atkAdd:11000,defAdd:6800 },
+    { index: 9,  name: '大罗金仙', maxExp: 380000, lifespan: 99999,hpAdd: 120000,atkAdd:25000,defAdd:15000 },
+    { index: 10, name: '混元道祖', maxExp: 999999, lifespan: 999999,hpAdd:300000,atkAdd:65000,defAdd:40000 }
+  ],
+
+  EQUIP_SLOTS: {
+    weapon: { label: '⚔️ 兵器法宝', icon: '⚔️' },
+    helm:   { label: '🪖 冠冕头饰', icon: '🪖' },
+    armor:  { label: '🥋 道袍护甲', icon: '🥋' },
+    relic:  { label: '💍 奇珍异宝', icon: '💍' }
+  },
+
+  BAG_CATEGORIES: [
+    { key: 'weapon', title: '⚔️ 兵器与本命法宝' },
+    { key: 'helm',   title: '🪖 冠冕与神识头饰' },
+    { key: 'armor',  title: '🥋 道袍与护身宝甲' },
+    { key: 'relic',  title: '💍 奇珍与气运异宝' },
+    { key: 'pill',   title: '💊 灵丹妙药与天材地宝' }
+  ]
+};
+
+/********************************************************************
+ * Module 2: SaveManager & InventoryEngine（四槽位互斥穿戴、同名自动堆叠、百世轮回）
+ ********************************************************************/
+class SaveManager {
+  static createDefaultState(customConfig = null, pastLives = [], legacyPoints = 0) {
+    const c = customConfig || {
+      name: '林玄',
+      gender: '男',
+      origin: '没落修真家族庶子，偶得一枚神秘残玉',
+      path: '丹器双绝·逍遥散仙',
+      alloc: { atk: 2, def: 2, hp: 2, luck: 2, insight: 2 }
+    };
+
+    const baseAtk = 35 + (c.alloc.atk || 0) * 8;
+    const baseDef = 22 + (c.alloc.def || 0) * 6;
+    const baseMaxHp = 260 + (c.alloc.hp || 0) * 35;
+    const baseLuck = 70 + (c.alloc.luck || 0) * 6;
+    const baseInsight = 70 + (c.alloc.insight || 0) * 6;
+
+    const lifeNum = pastLives.length + 1;
+
+    const state = {
+      version: '6.0.0',
+      savedAt: new Date().toLocaleString('zh-CN', { hour12: false }),
+      reincarnation: {
+        lifeCount: lifeNum,
+        legacyPoints: legacyPoints,
+        pastLives: pastLives
+      },
+      worldInfo: {
+        eraName: `第${lifeNum}世 · 诸天初开纪元`,
+        currentPlane: '凡人下界',
+        maps: [
+          { name: '云梦泽坊市', plane: '凡人下界', danger: '鱼龙混杂 · 散修聚集', desc: '下界百族交易灵草与古物的水泽集市。' },
+          { name: '万瘴古林', plane: '凡人下界', danger: '妖兽横行 · 盛产灵药', desc: '毒瘴弥漫的太古森林，深处常有遗迹现世。' },
+          { name: '坠星荒原', plane: '古灵中界', danger: '域外罡风 · 法则残片', desc: '上古星辰坠落之地，蕴含惊人天道机缘。' },
+          { name: '九天玄玉京', plane: '太虚仙界', danger: '万仙来朝 · 大道圣境', desc: '悬浮于太虚云海之上的仙家帝都。' }
+        ]
+      },
+      player: {
+        name: c.name,
+        gender: c.gender,
+        origin: c.origin,
+        path: c.path,
+        age: 16,
+        maxLifespan: 100,
+        realmIndex: 0,
+        exp: 0,
+        maxExp: 180,
+        hp: baseMaxHp,
+        baseMaxHp: baseMaxHp,
+        maxHp: baseMaxHp,
+        baseAtk: baseAtk,
+        atk: baseAtk,
+        baseDef: baseDef,
+        def: baseDef,
+        luck: baseLuck,
+        insight: baseInsight,
+        spirit: 60 + (c.alloc.insight || 0) * 4,
+        karma: 0, // 正数为正道功德，负数为魔道煞气
+        spiritStones: 250,
+        location: '云梦泽坊市',
+        towerFloor: 1,
+        roots: {
+          gold: 15 + Math.floor(Math.random() * 25),
+          wood: 15 + Math.floor(Math.random() * 25),
+          water: 15 + Math.floor(Math.random() * 25),
+          fire: 15 + Math.floor(Math.random() * 25),
+          earth: 15 + Math.floor(Math.random() * 25)
+        }
+      },
+      // 四个互斥唯一装备槽位（存放物品唯一 key，绝不重复叠加）
+      equippedSlots: {
+        weapon: null,
+        helm: null,
+        armor: null,
+        relic: null
+      },
+      inventory: [
+        {
+          stackKey: 'weapon_古玄铁护手刃_灵品',
+          name: '古玄铁护手刃',
+          slot: 'weapon',
+          rarity: '灵品',
+          count: 1,
+          bonus: { atk: 18, def: 4, hp: 0 },
+          desc: '出身随身携带的护身利器，材质坚韧，隐现寒芒。'
+        },
+        {
+          stackKey: 'armor_青竹避尘袍_灵品',
+          name: '青竹避尘袍',
+          slot: 'armor',
+          rarity: '灵品',
+          count: 1,
+          bonus: { atk: 0, def: 15, hp: 60 },
+          desc: '以百年青竹丝织就的道袍，轻便透气，水火不侵。'
+        },
+        {
+          stackKey: 'pill_百草培元丹_灵品',
+          name: '百草培元丹',
+          slot: 'pill',
+          rarity: '灵品',
+          count: 2,
+          bonus: { hp: 100, exp: 35 },
+          desc: '温和醇厚的疗伤固本灵丹，服用可恢复气血并精进少许修为。'
+        }
+      ],
+      skills: [
+        {
+          id: 'sk_1',
+          name: `《${c.path.slice(0, 4)}初解》`,
+          rarity: '玄品',
+          level: 1,
+          bonus: { atk: 15, def: 10, hp: 40 },
+          desc: `契合您【${c.path}】志向的根本入门法诀，运转周天生生不息。`
+        }
+      ],
+      factions: [
+        { name: '云梦散修盟', reputation: 30, relation: '友善互助' },
+        { name: '太虚万宝阁', reputation: 20, relation: '公平交易' },
+        { name: '九幽血煞殿', reputation: -30, relation: '暗中窥伺' }
+      ],
+      ragMemory: {
+        worldFacts: [
+          {
+            id: 'fact_1',
+            timestamp: new Date().toLocaleString('zh-CN', { hour12: false }),
+            location: '云梦泽坊市',
+            keywords: [c.name, c.origin, c.path],
+            summary: `第${lifeNum}世降生：${c.name}（${c.origin}），立志修行【${c.path}】，于云梦泽坊市正式踏入修真界。`
+          }
+        ],
+        npcRegistry: {
+          '百晓生莫老': {
+            name: '百晓生莫老',
+            title: '云梦茶肆说书人',
+            affinity: 40,
+            location: '云梦泽坊市',
+            note: '见多识广的灰衣老者，对您的身世颇感兴趣，常指点九州风物。'
+          }
+        }
+      },
+      currentScene: {
+        storyText: `【第 ${lifeNum} 世 · 命格初定】\n您名为「${c.name}」，出身于「${c.origin}」，心中向往的是「${c.path}」之无上大道。\n\n此刻，云梦泽坊市烟雨朦胧，灵舟穿梭。茶肆中的百晓生莫老正敲着醒木讲述万瘴古林近日出土的一座古修遗府，而邻桌几名气息彪悍的修士正低声商议着组队寻宝之事。天道画卷已在您面前徐徐展开！`,
+        choices: [
+          { text: "选项1：上前向百晓生莫老敬茶，探听古修遗府的详细禁制情报", type: "social" },
+          { text: "选项2：独自深入万瘴古林外围，凭借自身神识寻觅灵草与机缘", type: "stealth" },
+          { text: "选项3：与邻桌修士切磋印证所学，展露实力争取合作主导权", type: "combat" }
+        ]
+      },
+      recentHistory: []
+    };
+
+    // 默认自动穿戴初始武器和护甲
+    state.equippedSlots.weapon = 'weapon_古玄铁护手刃_灵品';
+    state.equippedSlots.armor = 'armor_青竹避尘袍_灵品';
+    InventoryEngine.recalculateStats(state);
+    return state;
+  }
+
+  static sanitizeAndHeal(raw) {
+    const fallback = SaveManager.createDefaultState();
+    if (!raw || typeof raw !== 'object') return fallback;
+    const state = {
+      ...fallback,
+      ...raw,
+      player: { ...fallback.player, ...(raw.player || {}) },
+      reincarnation: { ...fallback.reincarnation, ...(raw.reincarnation || {}) },
+      worldInfo: { ...fallback.worldInfo, ...(raw.worldInfo || {}) },
+      equippedSlots: { ...fallback.equippedSlots, ...(raw.equippedSlots || {}) },
+      ragMemory: { ...fallback.ragMemory, ...(raw.ragMemory || {}) }
+    };
+    if (!Array.isArray(state.inventory)) state.inventory = fallback.inventory;
+    if (!Array.isArray(state.skills)) state.skills = fallback.skills;
+    if (!Array.isArray(state.factions)) state.factions = fallback.factions;
+    InventoryEngine.normalizeInventoryStacks(state);
+    InventoryEngine.recalculateStats(state);
+    return state;
+  }
+
+  static loadMain() {
+    try {
+      const str = localStorage.getItem(GameConfig.STORAGE_MAIN_KEY);
+      if (!str) return null;
+      return SaveManager.sanitizeAndHeal(JSON.parse(str));
+    } catch (e) {
+      return null;
+    }
+  }
+
+  static saveMain(state) {
+    try {
+      state.savedAt = new Date().toLocaleString('zh-CN', { hour12: false });
+      localStorage.setItem(GameConfig.STORAGE_MAIN_KEY, JSON.stringify(state));
+    } catch (e) {}
+  }
+
+  static exportToFile(state) {
+    const jsonStr = JSON.stringify(state, null, 2);
+    const blob = new Blob([jsonStr], { type: 'application/json;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const dateStr = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `太虚问道录_第${state.reincarnation.lifeCount}世_${state.player.name}_${dateStr}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+}
+
+class InventoryEngine {
+  // 规范化部位识别：根据名称或描述智能归入 weapon/helm/armor/relic/pill
+  static inferSlot(item) {
+    const rawSlot = String(item.slot || item.type || '').toLowerCase();
+    const nameStr = String(item.name || '');
+    if (rawSlot === 'pill' || rawSlot.includes('丹') || rawSlot.includes('药') || rawSlot.includes('草') || /丹|丸|散|膏|草|果|露/.test(nameStr)) {
+      return 'pill';
+    }
+    if (rawSlot === 'helm' || rawSlot.includes('冠') || rawSlot.includes('帽') || rawSlot.includes('头') || /冠|笠|巾|簪|冕/.test(nameStr)) {
+      return 'helm';
+    }
+    if (rawSlot === 'armor' || rawSlot.includes('甲') || rawSlot.includes('袍') || rawSlot.includes('衣') || /甲|袍|衣|裳|铠|披风/.test(nameStr)) {
+      return 'armor';
+    }
+    if (rawSlot === 'relic' || rawSlot.includes('宝') || rawSlot.includes('戒') || rawSlot.includes('佩') || /佩|印|珠|镜|令|符|环|镯|鼎|葫芦/.test(nameStr)) {
+      return 'relic';
+    }
+    return 'weapon';
+  }
+
+  // 自动合并同名同品阶装备，杜绝满屏重复物品
+  static normalizeInventoryStacks(state) {
+    const map = new Map();
+    (state.inventory || []).forEach(it => {
+      if (!it || !it.name) return;
+      const slot = InventoryEngine.inferSlot(it);
+      const rarity = it.rarity || '灵品';
+      const key = `${slot}_${it.name.trim()}_${rarity}`;
+      if (map.has(key)) {
+        const existing = map.get(key);
+        existing.count = (Number(existing.count) || 1) + (Number(it.count) || 1);
+      } else {
+        map.set(key, {
+          stackKey: key,
+          name: it.name.trim(),
+          slot: slot,
+          rarity: rarity,
+          count: Math.max(1, Number(it.count) || 1),
+          bonus: {
+            atk: Number(it.bonus?.atk) || 0,
+            def: Number(it.bonus?.def) || 0,
+            hp: Number(it.bonus?.hp) || 0,
+            exp: Number(it.bonus?.exp) || 0
+          },
+          desc: it.desc || '天道灵物，蕴含玄妙法则。'
+        });
+      }
+    });
+    state.inventory = Array.from(map.values());
+
+    // 校验已穿戴槽位是否仍在背包中
+    ['weapon', 'helm', 'armor', 'relic'].forEach(slotKey => {
+      const equippedKey = state.equippedSlots[slotKey];
+      if (equippedKey && !state.inventory.some(x => x.stackKey === equippedKey)) {
+        state.equippedSlots[slotKey] = null;
+      }
+    });
+  }
+
+  // 添加物品（自动堆叠）
+  static addItem(state, rawItem) {
+    if (!rawItem || !rawItem.name) return;
+    const slot = InventoryEngine.inferSlot(rawItem);
+    const rarity = rawItem.rarity || '灵品';
+    const stackKey = `${slot}_${rawItem.name.trim()}_${rarity}`;
+    const existing = state.inventory.find(x => x.stackKey === stackKey);
+    if (existing) {
+      existing.count += Math.max(1, Number(rawItem.count) || 1);
+    } else {
+      state.inventory.unshift({
+        stackKey,
+        name: rawItem.name.trim(),
+        slot,
+        rarity,
+        count: Math.max(1, Number(rawItem.count) || 1),
+        bonus: {
+          atk: Number(rawItem.bonus?.atk) || (slot === 'weapon' ? 20 : 8),
+          def: Number(rawItem.bonus?.def) || (slot === 'armor' || slot === 'helm' ? 16 : 6),
+          hp: Number(rawItem.bonus?.hp) || (slot === 'pill' ? 100 : 40),
+          exp: Number(rawItem.bonus?.exp) || 0
+        },
+        desc: rawItem.desc || '诸天奇遇所得之宝物。'
+      });
+    }
+  }
+
+  // 重新计算角色总属性（基础属性 + 4个唯一装备槽 + 功法加成），彻底根治属性无限叠加 Bug！
+  static recalculateStats(state) {
+    const p = state.player;
+    let totalAtk = Number(p.baseAtk) || 40;
+    let totalDef = Number(p.baseDef) || 25;
+    let totalMaxHp = Number(p.baseMaxHp) || 300;
+
+    // 加上 4 个唯一穿戴槽位
+    ['weapon', 'helm', 'armor', 'relic'].forEach(slotKey => {
+      const stackKey = state.equippedSlots[slotKey];
+      if (!stackKey) return;
+      const item = state.inventory.find(x => x.stackKey === stackKey);
+      if (item && item.bonus) {
+        totalAtk += Number(item.bonus.atk) || 0;
+        totalDef += Number(item.bonus.def) || 0;
+        totalMaxHp += Number(item.bonus.hp) || 0;
+      }
+    });
+
+    // 加上功法加成
+    (state.skills || []).forEach(sk => {
+      const lv = Number(sk.level) || 1;
+      totalAtk += (Number(sk.bonus?.atk) || 15) * lv;
+      totalDef += (Number(sk.bonus?.def) || 10) * lv;
+      totalMaxHp += (Number(sk.bonus?.hp) || 30) * lv;
+    });
+
+    p.atk = totalAtk;
+    p.def = totalDef;
+    p.maxHp = totalMaxHp;
+    p.hp = Math.min(p.maxHp, Math.max(1, p.hp));
+  }
+
+  // 计算单件装备综合战力评分
+  static scoreEquipment(item) {
+    if (!item || item.slot === 'pill') return -1;
+    const b = item.bonus || {};
+    return (Number(b.atk) || 0) * 2.2 + (Number(b.def) || 0) * 1.8 + (Number(b.hp) || 0) * 0.4;
+  }
+
+  // 一键穿戴背包中最强四件套
+  static autoEquipBestSet(state) {
+    const changed = [];
+    ['weapon', 'helm', 'armor', 'relic'].forEach(slotKey => {
+      const candidates = state.inventory.filter(x => x.slot === slotKey);
+      if (candidates.length === 0) return;
+      candidates.sort((a, b) => InventoryEngine.scoreEquipment(b) - InventoryEngine.scoreEquipment(a));
+      const best = candidates[0];
+      if (state.equippedSlots[slotKey] !== best.stackKey) {
+        state.equippedSlots[slotKey] = best.stackKey;
+        changed.push(best.name);
+      }
+    });
+    InventoryEngine.recalculateStats(state);
+    return changed;
+  }
+}
+
+/********************************************************************
+ * Module 3: MemoryRAG（本地因果检索与记忆写入引擎）
+ ********************************************************************/
+class MemoryRAG {
+  static extractTokens(text) {
+    if (!text) return [];
+    const cleaned = text.replace(/[^\u4e00-\u9fa5a-zA-Z0-9]/g, ' ');
+    const set = new Set();
+    cleaned.split(/\s+/).filter(Boolean).forEach(part => {
+      if (part.length <= 3) set.add(part);
+      else {
+        for (let i = 0; i < part.length - 1; i++) set.add(part.slice(i, i + 2));
+      }
+    });
+    return Array.from(set);
+  }
+
+  static commitMemoryUpdate(state, memoryUpdate) {
+    if (!memoryUpdate || typeof memoryUpdate !== 'object') return;
+    const nowStr = new Date().toLocaleString('zh-CN', { hour12: false });
+    const loc = memoryUpdate.location || state.player.location;
+    if (memoryUpdate.location) state.player.location = memoryUpdate.location;
+
+    if (memoryUpdate.newEventSummary) {
+      const summary = String(memoryUpdate.newEventSummary).trim();
+      state.ragMemory.worldFacts.unshift({
+        id: 'fact_' + Date.now(),
+        timestamp: nowStr,
+        location: loc,
+        keywords: MemoryRAG.extractTokens(summary + ' ' + loc).slice(0, 10),
+        summary
+      });
+      if (state.ragMemory.worldFacts.length > 120) state.ragMemory.worldFacts.pop();
+    }
+
+    if (Array.isArray(memoryUpdate.npcUpdates)) {
+      memoryUpdate.npcUpdates.forEach(npc => {
+        if (!npc || !npc.name) return;
+        const name = String(npc.name).trim();
+        const cur = state.ragMemory.npcRegistry[name] || {
+          name,
+          title: npc.title || '修真同道',
+          affinity: 0,
+          location: loc,
+          note: ''
+        };
+        if (npc.title) cur.title = npc.title;
+        cur.affinity = Math.max(-100, Math.min(100, (Number(cur.affinity) || 0) + (Number(npc.affinityDelta) || 0)));
+        cur.location = loc;
+        if (npc.note) cur.note = npc.note;
+        state.ragMemory.npcRegistry[name] = cur;
+      });
+    }
+  }
+
+  static retrieveContext(state, queryText, currentLocation) {
+    const tokens = MemoryRAG.extractTokens((queryText || '') + ' ' + (currentLocation || ''));
+    const scoredFacts = (state.ragMemory.worldFacts || []).map((f, idx) => {
+      let score = f.location === currentLocation ? 6 : 0;
+      const text = (f.summary || '') + ' ' + (f.keywords || []).join(' ');
+      tokens.forEach(t => { if (t && text.includes(t)) score += 3; });
+      score += Math.max(0, (15 - idx) * 0.2);
+      return { f, score };
+    });
+    scoredFacts.sort((a, b) => b.score - a.score);
+
+    const npcArr = Object.values(state.ragMemory.npcRegistry || {});
+    const scoredNpcs = npcArr.map(npc => {
+      let score = Math.abs(npc.affinity || 0) * 0.25;
+      if (npc.location === currentLocation) score += 12;
+      if (queryText && queryText.includes(npc.name)) score += 35;
+      return { npc, score };
+    });
+    scoredNpcs.sort((a, b) => b.score - a.score);
+
+    return {
+      topFacts: scoredFacts.slice(0, 6).map(x => `[${x.f.location}] ${x.f.summary}`),
+      topNpcs: scoredNpcs.slice(0, 5).map(x => `${x.npc.name}(${x.npc.title},好感:${x.npc.affinity},印象:${x.npc.note})`)
+    };
+  }
+}
+
+/********************************************************************
+ * Module 4: AIGameMaster（全域 DeepSeek 实时天道裁决、创世推演、轮回立传）
+ ********************************************************************/
+class AIGameMaster {
+  static getApiConfig() {
+    try {
+      const raw = localStorage.getItem(GameConfig.STORAGE_API_KEY);
+      if (!raw) return { endpoint: 'https://api.deepseek.com/chat/completions', model: 'deepseek-chat', apiKey: '' };
+      return JSON.parse(raw);
+    } catch (e) {
+      return { endpoint: 'https://api.deepseek.com/chat/completions', model: 'deepseek-chat', apiKey: '' };
+    }
+  }
+
+  static saveApiConfig(cfg) {
+    localStorage.setItem(GameConfig.STORAGE_API_KEY, JSON.stringify(cfg));
+  }
+
+  static safeParseJSON(rawText) {
+    if (!rawText || typeof rawText !== 'string') return null;
+    try {
+      const cleaned = rawText.replace(/```json/gi, '').replace(/```/g, '').trim();
+      const s = cleaned.indexOf('{');
+      const e = cleaned.lastIndexOf('}');
+      if (s === -1 || e === -1 || e <= s) return null;
+      const jsonStr = cleaned.slice(s, e + 1).replace(/,\s*([}\]])/g, '$1');
+      return JSON.parse(jsonStr);
+    } catch (err) {
+      return null;
+    }
+  }
+
+  static async callLLM(systemPrompt, userPrompt) {
+    const cfg = AIGameMaster.getApiConfig();
+    if (!cfg.apiKey) return null;
+
+    for (let attempt = 1; attempt <= 2; attempt++) {
+      const ctrl = new AbortController();
+      const timer = setTimeout(() => ctrl.abort(), 25000);
+      try {
+        const res = await fetch(cfg.endpoint || 'https://api.deepseek.com/chat/completions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${cfg.apiKey.trim()}`
+          },
+          body: JSON.stringify({
+            model: cfg.model || 'deepseek-chat',
+            messages: [
+              { role: 'system', content: systemPrompt },
+              { role: 'user', content: userPrompt }
+            ],
+            temperature: 0.88
+          }),
+          signal: ctrl.signal
+        });
+        clearTimeout(timer);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        const content = data?.choices?.[0]?.message?.content || '';
+        const parsed = AIGameMaster.safeParseJSON(content);
+        if (parsed) return parsed;
+      } catch (e) {
+        clearTimeout(timer);
+        if (attempt === 2) return null;
+      }
+    }
+    return null;
+  }
+
+  // 1. 开局创世推演：根据玩家自定义的出身与大道方向，生成完全不同的修仙世界与开篇
+  static async generateWorldGenesis(state) {
+    const p = state.player;
+    const sys = `你是东方修仙宇宙的创世天道。玩家刚刚开启第 ${state.reincarnation.lifeCount} 世轮回。
+请彻底抛弃千篇一律的“剑修”模板，严格围绕玩家设定的【姓名：${p.name}】【性别：${p.gender}】【出身：${p.origin}】【主修大道：${p.path}】，为他量身定制一个独特的修真纪元！
+必须返回严格纯 JSON：
+{
+  "eraName": "本世专属纪元名称（如：万古丹尊纪、太古巫神纪）",
+  "startingLocation": "初始降生地名",
+  "worldMaps": [
+    {"name": "下界地名1", "plane": "凡人下界", "danger": "环境特点", "desc": "30字内描述"},
+    {"name": "下界地名2", "plane": "凡人下界", "danger": "环境特点", "desc": "30字内描述"},
+    {"name": "中界地名1", "plane": "古灵中界", "danger": "环境特点", "desc": "30字内描述"},
+    {"name": "仙界地名1", "plane": "太虚仙界", "danger": "环境特点", "desc": "30字内描述"}
+  ],
+  "factions": [
+    {"name": "本世特色宗门1", "reputation": 30, "relation": "关系描述"},
+    {"name": "本世特色势力2", "reputation": 0, "relation": "关系描述"},
+    {"name": "本世敌对势力3", "reputation": -30, "relation": "关系描述"}
+  ],
+  "starterItem": {"name": "契合主修大道的本命器物", "slot": "weapon或relic", "rarity": "玄品", "bonus": {"atk": 25, "def": 10, "hp": 50}, "desc": "来历描述"},
+  "starterSkill": {"name": "契合大道的独门功法名", "rarity": "玄品", "bonus": {"atk": 22, "def": 12, "hp": 60}, "desc": "功法神通描述"},
+  "firstNpc": {"name": "引路人或宿敌姓名", "title": "身份头衔", "affinity": 45, "note": "与主角出身相关的渊源"},
+  "storyText": "220~350字极具沉浸感的降世开篇剧情描写，紧扣玩家的出身与大道方向...",
+  "choices": [
+    {"text": "选项1：契合主修大道的行动", "type": "combat"},
+    {"text": "选项2：契合出身背景的探索行动", "type": "stealth"},
+    {"text": "选项3：与身边人物互动的行动", "type": "social"}
+  ]
+}`;
+    return await AIGameMaster.callLLM(sys, '请立即推演此世天地法则与开篇奇遇，只输出JSON。');
+  }
+
+  // 2. 全域行动裁决引擎（80%+ 游戏交互全部走此实时推演，拒绝无脑加修为！）
+  static async dispatchAction(state, actionCategory, playerActionDesc) {
+    const p = state.player;
+    const realm = GameConfig.REALMS[p.realmIndex] || GameConfig.REALMS[0];
+    const rag = MemoryRAG.retrieveContext(state, playerActionDesc, p.location);
+
+    const sys = `你是《太虚问道录》的实时天道推演引擎（AI Game Master）。
+玩家当前处于【${state.worldInfo.eraName}】，角色【${p.name}】（${p.gender}，${p.age}/${p.maxLifespan}岁），出身【${p.origin}】，主修大道【${p.path}】，当前境界【${realm.name}】，位于【${state.worldInfo.currentPlane} · ${p.location}】。
+当前属性：气血 ${p.hp}/${p.maxHp} | 战力 ${p.atk} | 罡气 ${p.def} | 气运 ${p.luck} | 悟性 ${p.insight} | 灵石 ${p.spiritStones} | 善恶道心 ${p.karma}。
+
+【RAG 检索出的本世前尘因果】
+${rag.topFacts.join('\n') || '初涉世事'}
+【相关在场/熟识人物】
+${rag.topNpcs.join('\n') || '暂无'}
+【最近剧情脉络】
+${(state.recentHistory || []).slice(-2).join('\n') || '刚刚启程'}
+
+【核心裁决铁律（极其重要！）】
+1. 绝不许每回合无脑给修为！必须根据玩家本次行动类型【${actionCategory}】与具体行为【${playerActionDesc}】真实判定因果：
+   - 若是闲聊交际、打探消息、赶路观景：expDelta 必须为 0，主要变动 NPC 好感度、道心(karmaDelta)或获得情报/地图。
+   - 若是莽撞越级强攻、偷袭大能失败、炼丹贪功炸炉：expDelta 为 0 或负数，且必须扣除气血(hpDelta 为负)，甚至折损寿元(lifespanDelta 为负)！
+   - 若是闭关苦修、生死破敌、服用仙丹、顿悟玄机：才给予合理的 expDelta 正向增长！
+2. 掉落装备的 slot 字段必须严格从 ["weapon", "helm", "armor", "relic", "pill"] 中五选一！
+3. 必须且只能返回如下纯 JSON 结构：
+{
+  "storyText": "220~360字极具东方仙侠/武侠纵深感的实时推演剧情，生动展现玩家行动的过程与天地法则反馈...",
+  "choices": [
+    {"text": "选项1：下一步行动抉择", "type": "combat"},
+    {"text": "选项2：下一步行动抉择", "type": "stealth"},
+    {"text": "选项3：下一步行动抉择", "type": "social"}
+  ],
+  "verdict": {
+    "outcomeTitle": "四字判词（如：炉毁人伤 / 大道顿悟 / 谈笑论交 / 险死还生）",
+    "hpDelta": 0,
+    "expDelta": 0,
+    "goldDelta": 0,
+    "ageDelta": 0,
+    "lifespanDelta": 0,
+    "luckDelta": 0,
+    "insightDelta": 0,
+    "karmaDelta": 0,
+    "breakthroughSuccess": false,
+    "newItems": [
+      {"name": "物品名", "slot": "weapon/helm/armor/relic/pill", "rarity": "灵品/玄品/地品/天品/仙品", "bonus": {"atk": 20, "def": 10, "hp": 50, "exp": 0}, "desc": "物品背景描述"}
+    ],
+    "newSkills": [],
+    "newMap": null
+  },
+  "memoryUpdate": {
+    "newEventSummary": "一句话精炼记录本回合因果事件",
+    "npcUpdates": [
+      {"name": "NPC名", "title": "身份", "affinityDelta": 15, "note": "最新互动印象"}
+    ],
+    "location": "${p.location}"
+  }
+}`;
+
+    const aiRes = await AIGameMaster.callLLM(
+      sys,
+      `行动类别：【${actionCategory}】\n玩家执行的具体行动：【${playerActionDesc}】\n请严格根据行为逻辑裁决并返回 JSON。`
+    );
+
+    if (aiRes && aiRes.storyText) {
+      return { data: aiRes, isOnline: true };
+    }
+
+    // 离线智能兜底（同样区分行动类型，不无脑加修为）
+    const isSocial = /茶|聊|探|问|赠|交/.test(playerActionDesc);
+    return {
+      isOnline: false,
+      data: {
+        storyText: `【${p.location} · 本地天道推演】\n您围绕所修之「${p.path}」，果断采取行动：「${playerActionDesc}」。\n四周灵气随之激荡，往来修士纷纷侧目。一番交锋与推演之后，您对这方天地的运转法则又多了一分体悟（提示：在天道设置中填入 DeepSeek API Key 即可解锁 100% 实时无限剧情推演）。`,
+        choices: [
+          { text: `选项1：继续在${p.location}深挖隐藏机缘`, type: 'stealth' },
+          { text: `选项2：运转「${p.path}」法门印证所得`, type: 'combat' },
+          { text: `选项3：寻访附近奇人异士交换情报`, type: 'social' }
+        ],
+        verdict: {
+          outcomeTitle: isSocial ? '风云际会' : '砥砺前行',
+          hpDelta: 0,
+          expDelta: isSocial ? 0 : 35 * (p.realmIndex + 1),
+          goldDelta: isSocial ? -10 : 40,
+          ageDelta: 0,
+          lifespanDelta: 0,
+          luckDelta: isSocial ? 2 : 0,
+          insightDelta: 2,
+          karmaDelta: 0,
+          breakthroughSuccess: actionCategory === '渡劫破境',
+          newItems: [],
+          newSkills: [],
+          newMap: null
+        },
+        memoryUpdate: {
+          newEventSummary: `于${p.location}执行「${playerActionDesc}」。`,
+          npcUpdates: [],
+          location: p.location
+        }
+      }
+    };
+  }
+
+  // 3. 百世轮回碑林立传：当玩家陨落或主动兵解结算时，由 DeepSeek 总结此生传记
+  static async generateLifeBiography(state, causeOfEnd) {
+    const p = state.player;
+    const realm = GameConfig.REALMS[p.realmIndex]?.name || '凡胎引气';
+    const facts = (state.ragMemory.worldFacts || []).slice(0, 12).map(f => f.summary).join('；');
+    const sys = `你是执掌诸天轮回的司命星君。玩家的第 ${state.reincarnation.lifeCount} 世修真生涯已经落幕（结局原因：${causeOfEnd}）。
+请根据他这一世的道号【${p.name}】、出身【${p.origin}】、大道【${p.path}】、最终境界【${realm}】、享年【${p.age}岁】以及生平大事记，撰写一篇荡气回肠的《第${state.reincarnation.lifeCount}世列传》（150~240字）与一句八字墓志铭判词。
+只返回纯 JSON：
+{
+  "epitaph": "八字生平判词",
+  "biography": "150~240字古风列传总结"
+}`;
+    const res = await AIGameMaster.callLLM(sys, `生平大事记：${facts}`);
+    if (res && res.biography) return res;
+    return {
+      epitaph: `${p.path.slice(0, 4)}证道，名留太虚`,
+      biography: `第${state.reincarnation.lifeCount}世【${p.name}】，出身于${p.origin}，毕生钻研「${p.path}」，历尽九州劫波，修至【${realm}】，享年${p.age}载。其事迹如流星划过太虚夜空，化作后世轮回之不朽底蕴。`
+    };
+  }
+}
+
+/********************************************************************
+ * Module 5: UIController, OTAUpdater & AudioSynth（DOM 控制、字号调节、云端热更）
+ ********************************************************************/
+class AudioSynth {
+  static play(type = 'click') {
+    try {
+      const Ctx = window.AudioContext || window.webkitAudioContext;
+      if (!Ctx) return;
+      const ctx = new Ctx();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      const now = ctx.currentTime;
+      if (type === 'click') {
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(420, now);
+        osc.frequency.exponentialRampToValueAtTime(560, now + 0.1);
+        gain.gain.setValueAtTime(0.12, now);
+        gain.gain.linearRampToValueAtTime(0.01, now + 0.11);
+        osc.start(now);
+        osc.stop(now + 0.11);
+      } else {
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(440, now);
+        osc.frequency.exponentialRampToValueAtTime(880, now + 0.28);
+        gain.gain.setValueAtTime(0.2, now);
+        gain.gain.linearRampToValueAtTime(0.01, now + 0.3);
+        osc.start(now);
+        osc.stop(now + 0.3);
+      }
+    } catch (e) {}
+  }
+}
+
+class UIController {
+  constructor() {
+    this.collapsedCategories = { weapon: false, helm: false, armor: false, relic: false, pill: false };
+    this.allocState = { total: 10, atk: 2, def: 2, hp: 2, luck: 2, insight: 2 };
+    this.isBusy = false;
+    this.secretClicks = 0;
+
+    this.loadPreferences();
+    const existingSave = SaveManager.loadMain();
+    if (!existingSave) {
+      this.state = SaveManager.createDefaultState();
+      SaveManager.saveMain(this.state);
+      this.initEventListeners();
+      this.renderAll();
+      this.openCreationModal(true);
+    } else {
+      this.state = existingSave;
+      this.initEventListeners();
+      this.renderAll();
+    }
+  }
+
+  loadPreferences() {
+    try {
+      const pref = JSON.parse(localStorage.getItem(GameConfig.STORAGE_PREF_KEY) || '{}');
+      const fontSize = Math.max(13, Math.min(20, Number(pref.fontSize) || 17));
+      document.documentElement.style.setProperty('--base-font-size', fontSize + 'px');
+      window.addEventListener('DOMContentLoaded', () => {
+        const slider = document.getElementById('fontSizeSlider');
+        const label = document.getElementById('fontSizeValLabel');
+        const otaInput = document.getElementById('otaUpdateUrlInput');
+        if (slider) slider.value = fontSize;
+        if (label) label.textContent = fontSize + 'px';
+        if (otaInput && pref.otaUrl) otaInput.value = pref.otaUrl;
+      });
+    } catch (e) {}
+  }
+
+  savePreferences(fontSize, otaUrl) {
+    try {
+      const old = JSON.parse(localStorage.getItem(GameConfig.STORAGE_PREF_KEY) || '{}');
+      localStorage.setItem(GameConfig.STORAGE_PREF_KEY, JSON.stringify({
+        fontSize: fontSize || old.fontSize || 17,
+        otaUrl: otaUrl !== undefined ? otaUrl : (old.otaUrl || '')
+      }));
+    } catch (e) {}
+  }
+
+  showToast(msg) {
+    const box = document.getElementById('toastBox');
+    box.textContent = msg;
+    box.classList.remove('hidden');
+    clearTimeout(this.toastTimer);
+    this.toastTimer = setTimeout(() => box.classList.add('hidden'), 2800);
+  }
+
+  initEventListeners() {
+    // 1. 底部一级主菜单切换
+    document.querySelectorAll('[data-maintab]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        AudioSynth.play('click');
+        this.switchMainTab(btn.getAttribute('data-maintab'));
+      });
+    });
+
+    // 2. 二级胶囊导航绑定
+    this.bindSubTabs('.adv-subtab-btn', 'subtab-');
+    this.bindSubTabs('.cave-subtab-btn', 'subtab-');
+    this.bindSubTabs('.mem-subtab-btn', 'subtab-');
+    this.bindSubTabs('.set-subtab-btn', 'subtab-');
+
+    // 3. 顶部设置与云端热更新按钮
+    document.getElementById('quickSettingsBtn').addEventListener('click', () => this.switchMainTab('tab-settings'));
+    document.getElementById('topOtaBtn').addEventListener('click', () => this.performOTAUpdate());
+    document.getElementById('triggerOtaUpdateBtn').addEventListener('click', () => this.performOTAUpdate());
+
+    document.getElementById('secretHeaderTrigger').addEventListener('click', () => {
+      this.secretClicks++;
+      clearTimeout(this.secTimer);
+      this.secTimer = setTimeout(() => { this.secretClicks = 0; }, 1800);
+      if (this.secretClicks >= 5) {
+        this.secretClicks = 0;
+        this.switchMainTab('tab-settings');
+        this.showToast('⚙️ 已为您展开天道灵枢配置');
+      }
+    });
+
+    // 4. 字体大小拖动条 (13px ~ 20px)
+    const slider = document.getElementById('fontSizeSlider');
+    slider.addEventListener('input', e => {
+      const val = Number(e.target.value) || 17;
+      document.documentElement.style.setProperty('--base-font-size', val + 'px');
+      document.getElementById('fontSizeValLabel').textContent = val + 'px';
+      this.savePreferences(val, undefined);
+    });
+
+    // 5. 自由行动输入执行
+    document.getElementById('freeActionSubmitBtn').addEventListener('click', () => {
+      const inp = document.getElementById('freeActionInput');
+      const val = inp.value.trim();
+      if (!val) {
+        this.showToast('✍️ 请先输入您的行动指令');
+        return;
+      }
+      inp.value = '';
+      this.executeRealTimeAction('自由行动', val);
+    });
+    document.getElementById('freeActionInput').addEventListener('keydown', e => {
+      if (e.key === 'Enter') document.getElementById('freeActionSubmitBtn').click();
+    });
+
+    // 6. 三界地图位面切换与 AI 开辟未知秘境
+    document.querySelectorAll('.plane-switch-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        AudioSynth.play('click');
+        const plane = btn.getAttribute('data-plane');
+        this.state.worldInfo.currentPlane = plane;
+        SaveManager.saveMain(this.state);
+        this.renderAll();
+      });
+    });
+
+    document.getElementById('aiDiscoverMapBtn').addEventListener('click', () => {
+      const plane = this.state.worldInfo.currentPlane;
+      this.switchMainTab('tab-adventure');
+      document.querySelector('[data-subtab="adv-story"]').click();
+      this.executeRealTimeAction('开辟新秘境', `施展神识在【${plane}】探寻一处从未有人踏足的太古秘境并绘制舆图（请在 verdict.newMap 返回新地点对象）`);
+    });
+
+    // 7. 宗门与万劫渊全部交由 DeepSeek 实时推演
+    document.getElementById('sectMissionBtn').addEventListener('click', () => {
+      this.switchMainTab('tab-adventure');
+      document.querySelector('[data-subtab="adv-story"]').click();
+      this.executeRealTimeAction('宗门悬赏', `在【${this.state.player.location}】接取一项契合「${this.state.player.path}」的高阶悬赏任务并立刻出发执行`);
+    });
+
+    document.getElementById('challengeTowerBtn').addEventListener('click', () => {
+      const floor = this.state.player.towerFloor;
+      this.state.player.towerFloor += 1;
+      SaveManager.saveMain(this.state);
+      this.switchMainTab('tab-adventure');
+      document.querySelector('[data-subtab="adv-story"]').click();
+      this.executeRealTimeAction('万劫渊试炼', `踏入万劫渊第 ${floor} 层，以自身所学「${this.state.player.path}」迎战镇守此层的太古凶灵`);
+    });
+
+    document.getElementById('sectMeditateBtn').addEventListener('click', () => {
+      this.switchMainTab('tab-adventure');
+      document.querySelector('[data-subtab="adv-story"]').click();
+      this.executeRealTimeAction('闭关调息', `寻一处灵眼洞窟布下护法禁制，潜心运转「${this.state.player.path}」恢复气血并体悟天地法则`);
+    });
+
+    document.getElementById('breakthroughQuickBtn').addEventListener('click', () => this.triggerBreakthrough());
+    document.getElementById('sectBreakBtn').addEventListener('click', () => this.triggerBreakthrough());
+
+    // 8. 一键穿戴最强套装
+    document.getElementById('autoEquipBestBtn').addEventListener('click', () => {
+      AudioSynth.play('break');
+      const changed = InventoryEngine.autoEquipBestSet(this.state);
+      SaveManager.saveMain(this.state);
+      this.renderAll();
+      if (changed.length > 0) {
+        this.showToast(`⚡ 已自动为您穿戴最强神装：${changed.join('、')}`);
+      } else {
+        this.showToast('✨ 当前已穿戴纳戒中最强套装！');
+      }
+    });
+
+    // 9. 功法自创/顿悟 & 炼丹铸器（全部交由 DeepSeek 推演）
+    document.getElementById('aiComprehendSkillBtn').addEventListener('click', () => {
+      if (this.state.player.spiritStones < 100) {
+        this.showToast('🪙 灵石不足 100 枚，无法布置悟道大阵');
+        return;
+      }
+      this.state.player.spiritStones -= 100;
+      SaveManager.saveMain(this.state);
+      this.switchMainTab('tab-adventure');
+      document.querySelector('[data-subtab="adv-story"]').click();
+      this.executeRealTimeAction('自创功法', `耗费100灵石燃起悟道古茶，结合「${this.state.player.path}」闭关推演自创一门全新神通功法（请在 verdict.newSkills 中返回新功法）`);
+    });
+
+    document.getElementById('aiCraftPillBtn').addEventListener('click', () => {
+      if (this.state.player.spiritStones < 60) {
+        this.showToast('🪙 灵石不足 60 枚');
+        return;
+      }
+      this.state.player.spiritStones -= 60;
+      const pillIdea = document.getElementById('customPillInput').value.trim() || '九转玄元丹';
+      document.getElementById('customPillInput').value = '';
+      SaveManager.saveMain(this.state);
+      this.switchMainTab('tab-adventure');
+      document.querySelector('[data-subtab="adv-story"]').click();
+      this.executeRealTimeAction('开炉炼丹', `投入60灵石药材开炉炼制【${pillIdea}】，请根据我的悟性(${this.state.player.insight})与气运(${this.state.player.luck})判定成丹品阶或炸炉意外，若成功请在 verdict.newItems 中返回 slot 为 "pill" 的灵丹`);
+    });
+
+    document.getElementById('aiCraftEquipBtn').addEventListener('click', () => {
+      if (this.state.player.spiritStones < 120) {
+        this.showToast('🪙 灵石不足 120 枚');
+        return;
+      }
+      this.state.player.spiritStones -= 120;
+      const slot = document.getElementById('customEquipSlotSelect').value;
+      const slotName = GameConfig.EQUIP_SLOTS[slot]?.label || '法宝';
+      const customName = document.getElementById('customEquipNameInput').value.trim() || '太虚造化宝器';
+      document.getElementById('customEquipNameInput').value = '';
+      SaveManager.saveMain(this.state);
+      this.switchMainTab('tab-adventure');
+      document.querySelector('[data-subtab="adv-story"]').click();
+      this.executeRealTimeAction('天道铸器', `耗费120灵石引地肺真火祭炼一件部位为【${slot}】（${slotName}）的专属器物【${customName}】，请在 verdict.newItems 中返回 slot 为 "${slot}" 的装备`);
+    });
+
+    // 10. 主动兵解飞升结算此世 & 开启下一世
+    document.getElementById('reincarnateNowBtn').addEventListener('click', () => {
+      if (confirm('确定要结算此世修真生涯，将其立碑铭刻入《轮回往世录》，并携带轮回点数开启下一世吗？')) {
+        this.settleCurrentLifeAndReincarnate('勘破红尘，主动兵解飞升入轮回');
+      }
+    });
+
+    document.getElementById('openNewLifeModalBtn').addEventListener('click', () => {
+      this.openCreationModal(false);
+    });
+
+    // 11. 创角弹窗预设按钮与确认创世
+    document.getElementById('closeCreationModalBtn').addEventListener('click', () => {
+      document.getElementById('creationModal').classList.add('hidden');
+      document.getElementById('creationModal').classList.remove('flex');
+    });
+
+    document.querySelectorAll('.origin-preset-btn').forEach(b => {
+      b.addEventListener('click', () => {
+        document.getElementById('createOriginInput').value = b.getAttribute('data-origin');
+      });
+    });
+
+    document.querySelectorAll('.path-preset-btn').forEach(b => {
+      b.addEventListener('click', () => {
+        document.getElementById('createPathInput').value = b.getAttribute('data-path');
+      });
+    });
+
+    document.getElementById('confirmCreateWorldBtn').addEventListener('click', () => this.confirmCreateNewWorld());
+
+    // 12. 存档导入导出与 API 设置
+    document.getElementById('exportJsonFileBtn').addEventListener('click', () => {
+      SaveManager.exportToFile(this.state);
+      this.showToast('📤 存档已导出为 .json 文件');
+    });
+
+    document.getElementById('importJsonFileInput').addEventListener('change', e => {
+      const f = e.target.files?.[0];
+      if (!f) return;
+      const reader = new FileReader();
+      reader.onload = evt => {
+        try {
+          this.state = SaveManager.sanitizeAndHeal(JSON.parse(evt.target.result));
+          SaveManager.saveMain(this.state);
+          this.renderAll();
+          this.showToast('✨ 天道赐福，外部存档载入成功！');
+        } catch (err) {
+          this.showToast('⚠️ JSON 格式错误，请检查文件');
+        }
+      };
+      reader.readAsText(f, 'utf-8');
+      e.target.value = '';
+    });
+
+    document.getElementById('refreshRawJsonBtn').addEventListener('click', () => {
+      document.getElementById('rawSaveJsonTextarea').value = JSON.stringify(this.state, null, 2);
+      this.showToast('🔄 已刷新当前存档数据');
+    });
+
+    document.getElementById('applyRawJsonBtn').addEventListener('click', () => {
+      try {
+        this.state = SaveManager.sanitizeAndHeal(JSON.parse(document.getElementById('rawSaveJsonTextarea').value));
+        SaveManager.saveMain(this.state);
+        this.renderAll();
+        this.showToast('✨ 改档数据已完美生效！');
+      } catch (e) {
+        this.showToast('⚠️ JSON 语法有误，请检查引号与逗号');
+      }
+    });
+
+    document.getElementById('saveApiConfigBtn').addEventListener('click', () => {
+      const endpoint = document.getElementById('cfgApiEndpointInput').value.trim();
+      const model = document.getElementById('cfgApiModelInput').value.trim();
+      const apiKey = document.getElementById('cfgApiKeyInput').value.trim();
+      AIGameMaster.saveApiConfig({ endpoint, model, apiKey });
+      this.showToast('💾 DeepSeek 灵枢配置已保存！');
+    });
+
+    document.getElementById('closeDetailModalBtn').addEventListener('click', () => this.closeDetailModal());
+    document.getElementById('modalSecondaryBtn').addEventListener('click', () => this.closeDetailModal());
+  }
+
+  // 云端 OTA 一键热更新（儿子终端部署，老爸按按钮保留存档原地更新）
+  async performOTAUpdate() {
+    const urlInput = document.getElementById('otaUpdateUrlInput');
+    let url = (urlInput?.value || '').trim();
+    if (!url && window.location.protocol.startsWith('http')) {
+      url = window.location.href.split('?')[0];
+    }
+    if (!url) {
+      this.switchMainTab('tab-settings');
+      this.showToast('☁️ 请先在「云端一键热更新」中填入您的云端 HTML 直链');
+      return;
+    }
+
+    this.savePreferences(undefined, url);
+    SaveManager.saveMain(this.state);
+    this.showToast('☁️ 正在备份存档并从云端拉取最新版本...');
+
+    try {
+      const sep = url.includes('?') ? '&' : '?';
+      const res = await fetch(`${url}${sep}_t=${Date.now()}`, { cache: 'no-store' });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const newHtml = await res.text();
+      if (!newHtml.includes('<html') || !newHtml.includes('太虚问道录')) {
+        throw new Error('返回内容不是有效的游戏 HTML');
+      }
+      this.showToast('✨ 更新成功！正在为您无缝重载新版本...');
+      setTimeout(() => {
+        document.open();
+        document.write(newHtml);
+        document.close();
+      }, 500);
+    } catch (err) {
+      this.showToast(`⚠️ 云端拉取失败 (${err.message})，已为您安全保留当前存档`);
+    }
+  }
+
+  // 打开开局创角与属性加点弹窗
+  openCreationModal(isFirstTime = false) {
+    const legacyBonus = this.state.reincarnation?.legacyPoints || 0;
+    const totalPts = 10 + legacyBonus;
+    this.allocState = {
+      total: totalPts,
+      atk: 2,
+      def: 2,
+      hp: 2,
+      luck: 2,
+      insight: 2
+    };
+    const modal = document.getElementById('creationModal');
+    const lifeNum = (this.state.reincarnation?.pastLives?.length || 0) + 1;
+    document.getElementById('creationModalTitle').textContent = `🌌 第 ${lifeNum} 世轮回 · 降世创角（含轮回加成 ${legacyBonus} 点）`;
+    this.renderAllocRows();
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+  }
+
+  renderAllocRows() {
+    const used = this.allocState.atk + this.allocState.def + this.allocState.hp + this.allocState.luck + this.allocState.insight;
+    const remain = this.allocState.total - used;
+    document.getElementById('remainPointsText').textContent = remain;
+
+    const dims = [
+      { key: 'atk', label: '⚔️ 攻伐锋芒 (战力)' },
+      { key: 'def', label: '🛡️ 护体筋骨 (罡气)' },
+      { key: 'hp',  label: '❤️ 气血生机 (血量)' },
+      { key: 'luck',label: '🌟 先天气运 (奇遇)' },
+      { key: 'insight', label: '💡 悟道灵光 (参悟)' }
+    ];
+
+    const box = document.getElementById('allocStatsContainer');
+    box.innerHTML = '';
+    dims.forEach(d => {
+      const val = this.allocState[d.key];
+      const row = document.createElement('div');
+      row.className = 'flex items-center justify-between bg-white px-3 py-1.5 rounded-xl border border-[#E2DEC9]';
+      row.innerHTML = `
+        <span class="text-[0.88rem] font-bold text-[#1F2421]">${d.label}</span>
+        <div class="flex items-center gap-2.5">
+          <button type="button" data-dec="${d.key}" class="w-8 h-8 rounded-lg bg-[#EAE6D7] font-extrabold text-[1rem]">-</button>
+          <span class="w-6 text-center font-extrabold text-[#2E5A44]">${val}</span>
+          <button type="button" data-inc="${d.key}" class="w-8 h-8 rounded-lg bg-[#2E5A44] text-white font-extrabold text-[1rem]">+</button>
+        </div>
+      `;
+      row.querySelector(`[data-dec="${d.key}"]`).addEventListener('click', () => {
+        if (this.allocState[d.key] > 0) {
+          this.allocState[d.key]--;
+          this.renderAllocRows();
+        }
+      });
+      row.querySelector(`[data-inc="${d.key}"]`).addEventListener('click', () => {
+        if (remain > 0) {
+          this.allocState[d.key]++;
+          this.renderAllocRows();
+        }
+      });
+      box.appendChild(row);
+    });
+  }
+
+  async confirmCreateNewWorld() {
+    const name = document.getElementById('createNameInput').value.trim() || '林玄';
+    const gender = document.getElementById('createGenderSelect').value;
+    const origin = document.getElementById('createOriginInput').value.trim() || '寒门散修';
+    const path = document.getElementById('createPathInput').value.trim() || '万道皆修';
+
+    const pastLives = this.state.reincarnation?.pastLives || [];
+    const legacyPoints = this.state.reincarnation?.legacyPoints || 0;
+
+    this.state = SaveManager.createDefaultState({
+      name,
+      gender,
+      origin,
+      path,
+      alloc: this.allocState
+    }, pastLives, legacyPoints);
+
+    document.getElementById('creationModal').classList.add('hidden');
+    document.getElementById('creationModal').classList.remove('flex');
+    this.switchMainTab('tab-adventure');
+    this.renderAll();
+
+    // 若已配置 DeepSeek Key，则立即由 AI 动态创世生成专属世界地图、宗门、法宝与开篇
+    const cfg = AIGameMaster.getApiConfig();
+    if (cfg.apiKey) {
+      this.showToast('🌌 DeepSeek 正在为您推演此世专属天地法则与万物...');
+      const badge = document.getElementById('aiEngineStatusBadge');
+      badge.textContent = '☯️ 创世推演中...';
+      const genesis = await AIGameMaster.generateWorldGenesis(this.state);
+      if (genesis && genesis.storyText) {
+        if (genesis.eraName) this.state.worldInfo.eraName = genesis.eraName;
+        if (genesis.startingLocation) this.state.player.location = genesis.startingLocation;
+        if (Array.isArray(genesis.worldMaps) && genesis.worldMaps.length >= 2) {
+          this.state.worldInfo.maps = genesis.worldMaps;
+        }
+        if (Array.isArray(genesis.factions) && genesis.factions.length > 0) {
+          this.state.factions = genesis.factions;
+        }
+        if (genesis.starterItem && genesis.starterItem.name) {
+          InventoryEngine.addItem(this.state, genesis.starterItem);
+          InventoryEngine.autoEquipBestSet(this.state);
+        }
+        if (genesis.starterSkill && genesis.starterSkill.name) {
+          this.state.skills = [{
+            id: 'sk_' + Date.now(),
+            name: genesis.starterSkill.name,
+            rarity: genesis.starterSkill.rarity || '玄品',
+            level: 1,
+            bonus: genesis.starterSkill.bonus || { atk: 22, def: 12, hp: 50 },
+            desc: genesis.starterSkill.desc || '本世独门功法'
+          }];
+          InventoryEngine.recalculateStats(this.state);
+        }
+        if (genesis.firstNpc && genesis.firstNpc.name) {
+          this.state.ragMemory.npcRegistry = {
+            [genesis.firstNpc.name]: {
+              name: genesis.firstNpc.name,
+              title: genesis.firstNpc.title || '此世故人',
+              affinity: Number(genesis.firstNpc.affinity) || 40,
+              location: this.state.player.location,
+              note: genesis.firstNpc.note || '降世初遇之人'
+            }
+          };
+        }
+        this.state.currentScene = {
+          storyText: genesis.storyText,
+          choices: Array.isArray(genesis.choices) && genesis.choices.length ? genesis.choices : this.state.currentScene.choices
+        };
+        badge.textContent = '✨ 创世完成';
+      }
+    }
+
+    SaveManager.saveMain(this.state);
+    this.renderAll();
+  }
+
+  // 全域实时行动执行与结果结算
+  async executeRealTimeAction(category, actionDesc) {
+    if (this.isBusy) return;
+    this.isBusy = true;
+    AudioSynth.play('click');
+
+    const badge = document.getElementById('aiEngineStatusBadge');
+    badge.textContent = '☯️ 天道裁决中...';
+    document.getElementById('choicesContainer').innerHTML = `
+      <div class="p-4 rounded-xl bg-[#F6F4EC] text-[#2E5A44] font-bold text-center">
+        ✨ 天道正在结合您的命格「${this.state.player.path}」与前尘记忆推演结果……
+      </div>
+    `;
+
+    const { data, isOnline } = await AIGameMaster.dispatchAction(this.state, category, actionDesc);
+    await this.applyVerdict(actionDesc, data, isOnline);
+    this.isBusy = false;
+  }
+
+  async applyVerdict(actionDesc, turnData, isOnline) {
+    const p = this.state.player;
+    const v = turnData.verdict || {};
+
+    const hpDelta = Number(v.hpDelta) || 0;
+    const expDelta = Number(v.expDelta) || 0;
+    const goldDelta = Number(v.goldDelta) || 0;
+
+    const lifeDelta = Number(v.lifespanDelta) || 0;
+    const luckDelta = Number(v.luckDelta) || 0;
+    const insightDelta = Number(v.insightDelta) || 0;
+    const karmaDelta = Number(v.karmaDelta) || 0;
+
+    p.hp = Math.min(p.maxHp, p.hp + hpDelta);
+    p.exp = Math.max(0, p.exp + expDelta);
+    p.spiritStones = Math.max(0, p.spiritStones + goldDelta);
+const rawAge = Number(v.ageDelta) || 0;
+    const ageDelta = rawAge > 0 ? rawAge : 0.25;
+    p.age = Number((p.age + ageDelta).toFixed(2));
+    p.maxLifespan = Math.max(20, p.maxLifespan + lifeDelta);
+    p.luck = Math.max(10, p.luck + luckDelta);
+    p.insight = Math.max(10, p.insight + insightDelta);
+    p.karma = Math.max(-100, Math.min(100, p.karma + karmaDelta));
+
+    const notes = [];
+    if (v.outcomeTitle) notes.push(`【${v.outcomeTitle}】`);
+    if (hpDelta !== 0) notes.push(`气血 ${hpDelta > 0 ? '+' + hpDelta : hpDelta}`);
+    if (expDelta !== 0) notes.push(`道行 ${expDelta > 0 ? '+' + expDelta : expDelta}`);
+    else notes.push(`道行未增(重在因果)`);
+    if (goldDelta !== 0) notes.push(`灵石 ${goldDelta > 0 ? '+' + goldDelta : goldDelta}`);
+    if (lifeDelta !== 0) notes.push(`寿元上限 ${lifeDelta > 0 ? '+' + lifeDelta : lifeDelta}`);
+    if (karmaDelta !== 0) notes.push(`道心 ${karmaDelta > 0 ? '正气+' + karmaDelta : '魔煞' + karmaDelta}`);
+
+    // 渡劫判定成功
+    if (v.breakthroughSuccess && p.realmIndex < GameConfig.REALMS.length - 1) {
+      p.exp = Math.max(0, p.exp - p.maxExp);
+      p.realmIndex += 1;
+      const nr = GameConfig.REALMS[p.realmIndex];
+      p.maxExp = nr.maxExp;
+      p.maxLifespan = Math.max(p.maxLifespan, nr.lifespan);
+      p.baseMaxHp += nr.hpAdd;
+      p.baseAtk += nr.atkAdd;
+      p.baseDef += nr.defAdd;
+      InventoryEngine.recalculateStats(this.state);
+      p.hp = p.maxHp;
+      AudioSynth.play('break');
+      notes.push(`🌩️ 破境晋升【${nr.name}】！寿元增至 ${p.maxLifespan} 载`);
+    }
+
+    // 发放新装备/丹药（自动分类与堆叠）
+    if (Array.isArray(v.newItems)) {
+      v.newItems.forEach(it => {
+        if (!it || !it.name) return;
+        InventoryEngine.addItem(this.state, it);
+        notes.push(`获【${it.name}】`);
+      });
+    }
+
+    // 发放新功法
+    if (Array.isArray(v.newSkills)) {
+      v.newSkills.forEach(sk => {
+        if (!sk || !sk.name) return;
+        if (!this.state.skills.some(s => s.name === sk.name)) {
+          this.state.skills.push({
+            id: 'sk_' + Date.now() + '_' + Math.floor(Math.random() * 999),
+            name: sk.name,
+            rarity: sk.rarity || '地品',
+            level: 1,
+            bonus: sk.bonus || { atk: 30, def: 15, hp: 80 },
+            desc: sk.desc || '顿悟所得之无上法门。'
+          });
+          notes.push(`悟出功法《${sk.name}》`);
+        }
+      });
+      InventoryEngine.recalculateStats(this.state);
+    }
+
+    // 动态开辟新地图
+    if (v.newMap && v.newMap.name) {
+      const exists = this.state.worldInfo.maps.some(m => m.name === v.newMap.name);
+      if (!exists) {
+        this.state.worldInfo.maps.push({
+          name: v.newMap.name,
+          plane: v.newMap.plane || this.state.worldInfo.currentPlane,
+          danger: v.newMap.danger || '未知秘境',
+          desc: v.newMap.desc || '刚刚被探明的神秘地域。'
+        });
+        notes.push(`开辟新秘境【${v.newMap.name}】`);
+      }
+    }
+
+    MemoryRAG.commitMemoryUpdate(this.state, turnData.memoryUpdate);
+    this.state.currentScene = {
+      storyText: turnData.storyText,
+      choices: Array.isArray(turnData.choices) && turnData.choices.length ? turnData.choices.slice(0, 3) : this.state.currentScene.choices
+    };
+    this.state.recentHistory.push(`行动：${actionDesc}\n结果：${turnData.storyText}`);
+    if (this.state.recentHistory.length > 5) this.state.recentHistory.shift();
+
+    const banner = document.getElementById('lastDeltaBanner');
+    banner.textContent = '☯️ 天道裁决：' + notes.join(' ｜ ');
+    banner.classList.remove('hidden');
+
+    document.getElementById('aiEngineStatusBadge').textContent = isOnline ? '✨ DeepSeek 实时推演' : '📜 本地推演引擎';
+
+    // 检查是否气血归零或寿元耗尽触发轮回结算
+    if (p.hp <= 0 || p.age >= p.maxLifespan) {
+      const reason = p.hp <= 0 ? `于${p.location}力战重伤，道躯崩碎陨落` : `寿元耗尽（享年${p.age}载），坐化于洞府`;
+      p.hp = 1;
+      SaveManager.saveMain(this.state);
+      this.renderAll();
+      await this.settleCurrentLifeAndReincarnate(reason);
+      return;
+    }
+
+    SaveManager.saveMain(this.state);
+    this.renderAll();
+    const scrollBox = document.getElementById('storyScrollBox');
+    if (scrollBox) scrollBox.scrollTop = 0;
+  }
+
+  triggerBreakthrough() {
+    const p = this.state.player;
+    if (p.exp < p.maxExp) {
+      this.showToast(`⚡ 道行尚差 ${p.maxExp - p.exp} 点方可引动破境天劫`);
+      return;
+    }
+    const nextRealm = GameConfig.REALMS[p.realmIndex + 1]?.name || '更高仙境';
+    this.switchMainTab('tab-adventure');
+    document.querySelector('[data-subtab="adv-story"]').click();
+    this.executeRealTimeAction(
+      '渡劫破境',
+      `道行已满，正式引动天劫冲击【${nextRealm}】！请结合我的道心(${p.karma})、气运(${p.luck})与所学「${p.path}」推演渡劫心魔与雷劫过程，若成功请将 verdict.breakthroughSuccess 设为 true！`
+    );
+  }
+
+  // 结算此世修真生涯，写入《轮回往世录》，并奖励轮回点数开启下一世
+  async settleCurrentLifeAndReincarnate(causeOfEnd) {
+    this.showToast('🌀 司命星君正在为您撰写本世修真列传并镌刻轮回碑...');
+    const bioRes = await AIGameMaster.generateLifeBiography(this.state, causeOfEnd);
+    const p = this.state.player;
+    const realmName = GameConfig.REALMS[p.realmIndex]?.name || '凡胎引气';
+    const earnedPoints = Math.max(3, (p.realmIndex + 1) * 3);
+
+    const record = {
+      lifeNum: this.state.reincarnation.lifeCount,
+      name: p.name,
+      gender: p.gender,
+      origin: p.origin,
+      path: p.path,
+      finalRealm: realmName,
+      age: p.age,
+      causeOfEnd,
+      epitaph: bioRes.epitaph,
+      biography: bioRes.biography,
+      endedAt: new Date().toLocaleString('zh-CN', { hour12: false }),
+      earnedPoints
+    };
+
+    this.state.reincarnation.pastLives.unshift(record);
+    this.state.reincarnation.legacyPoints = (this.state.reincarnation.legacyPoints || 0) + earnedPoints;
+    SaveManager.saveMain(this.state);
+    this.renderAll();
+
+    alert(`📜 【第 ${record.lifeNum} 世 · ${p.name} 列传已镌刻】\n\n判词：「${record.epitaph}」\n\n${record.biography}\n\n✨ 本世为您积累了 +${earnedPoints} 点轮回天道底蕴，已注入下一世创角面板！（您可随时在「因果记忆 ➔ 轮回往世录」中翻阅此世回忆）`);
+    this.openCreationModal(false);
+  }
+
+  bindSubTabs(btnSelector, panelPrefix) {
+    const btns = document.querySelectorAll(btnSelector);
+    btns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        AudioSynth.play('click');
+        const target = btn.getAttribute('data-subtab');
+        btns.forEach(b => {
+          b.classList.remove('subtab-active');
+          b.classList.add('subtab-inactive');
+          const el = document.getElementById(panelPrefix + b.getAttribute('data-subtab'));
+          if (el) el.classList.add('hidden');
+        });
+        btn.classList.add('subtab-active');
+        btn.classList.remove('subtab-inactive');
+        const active = document.getElementById(panelPrefix + target);
+        if (active) active.classList.remove('hidden');
+      });
+    });
+  }
+
+  switchMainTab(tabId) {
+    ['tab-adventure', 'tab-cave', 'tab-memory', 'tab-settings'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.classList.toggle('hidden', id !== tabId);
+    });
+    document.querySelectorAll('[data-maintab]').forEach(btn => {
+      btn.classList.toggle('main-nav-active', btn.getAttribute('data-maintab') === tabId);
+    });
+    if (tabId === 'tab-settings') {
+      document.getElementById('rawSaveJsonTextarea').value = JSON.stringify(this.state, null, 2);
+    }
+  }
+
+  openItemModal(item, isSkill = false) {
+    AudioSynth.play('click');
+    const modal = document.getElementById('itemDetailModal');
+    const slotLabel = isSkill ? '功法神通' : (GameConfig.EQUIP_SLOTS[item.slot]?.label || '灵丹妙药');
+    document.getElementById('modalItemRarity').textContent = `${item.rarity || '灵品'} · ${slotLabel}`;
+    document.getElementById('modalItemTitle').textContent = isSkill ? item.name : `${item.name} (x${item.count || 1})`;
+    document.getElementById('modalItemDesc').textContent = item.desc || '';
+
+    const b = item.bonus || {};
+    const parts = [];
+    if (b.atk) parts.push(`攻伐 +${b.atk}`);
+    if (b.def) parts.push(`罡气 +${b.def}`);
+    if (b.hp) parts.push(`气血 +${b.hp}`);
+    if (b.exp) parts.push(`道行 +${b.exp}`);
+    document.getElementById('modalItemBonus').textContent = parts.length ? '✨ 属性效果：' + parts.join(' ｜ ') : '✨ 特殊天道奇物';
+
+    const btn = document.getElementById('modalPrimaryActionBtn');
+    if (isSkill) {
+      btn.textContent = '消耗60灵石请天道推演精进';
+      btn.onclick = () => {
+        if (this.state.player.spiritStones < 60) {
+          this.showToast('🪙 灵石不足 60 枚');
+          return;
+        }
+        this.state.player.spiritStones -= 60;
+        item.level = (item.level || 1) + 1;
+        InventoryEngine.recalculateStats(this.state);
+        SaveManager.saveMain(this.state);
+        this.closeDetailModal();
+        this.renderAll();
+        this.showToast(`📘 ${item.name} 提升至第 ${item.level} 重！`);
+      };
+    } else if (item.slot === 'pill') {
+      btn.textContent = '立即炼化服用 (数量 -1)';
+      btn.onclick = () => {
+        AudioSynth.play('break');
+        this.state.player.hp = Math.min(this.state.player.maxHp, this.state.player.hp + (Number(b.hp) || 80));
+        this.state.player.exp += Number(b.exp) || 40;
+        item.count -= 1;
+        if (item.count <= 0) {
+          this.state.inventory = this.state.inventory.filter(x => x.stackKey !== item.stackKey);
+        }
+        SaveManager.saveMain(this.state);
+        this.closeDetailModal();
+        this.renderAll();
+        this.showToast(`💊 已炼化【${item.name}】！`);
+      };
+    } else {
+      const isEquipped = this.state.equippedSlots[item.slot] === item.stackKey;
+      btn.textContent = isEquipped ? '卸下此装备' : `穿戴至【${GameConfig.EQUIP_SLOTS[item.slot]?.label}】槽`;
+      btn.onclick = () => {
+        AudioSynth.play('click');
+        if (isEquipped) {
+          this.state.equippedSlots[item.slot] = null;
+          this.showToast(`已卸下【${item.name}】`);
+        } else {
+          this.state.equippedSlots[item.slot] = item.stackKey;
+          this.showToast(`🛡️ 已穿戴【${item.name}】（自动替换同部位旧装）`);
+        }
+        InventoryEngine.recalculateStats(this.state);
+        SaveManager.saveMain(this.state);
+        this.closeDetailModal();
+        this.renderAll();
+      };
+    }
+
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+  }
+
+  closeDetailModal() {
+    const modal = document.getElementById('itemDetailModal');
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+  }
+
+  renderAll() {
+    const p = this.state.player;
+    const realm = GameConfig.REALMS[p.realmIndex] || GameConfig.REALMS[0];
+
+    // 1. 顶部栏
+    document.getElementById('topLifeBadge').textContent = `第${this.state.reincarnation.lifeCount}世`;
+    document.getElementById('topPlayerName').textContent = p.name;
+    document.getElementById('topPathBadge').textContent = p.path;
+    document.getElementById('topRealmBadge').textContent = realm.name;
+    document.getElementById('topLocationText').textContent = p.location;
+    document.getElementById('topGoldText').textContent = p.spiritStones.toLocaleString();
+    document.getElementById('topAgeText').textContent = `${p.age}/${p.maxLifespan}岁`;
+
+    const hpPct = Math.min(100, Math.floor((p.hp / p.maxHp) * 100));
+    document.getElementById('topHpText').textContent = `${p.hp}/${p.maxHp}`;
+    document.getElementById('topHpBar').style.width = hpPct + '%';
+
+    const expPct = Math.min(100, Math.floor((p.exp / p.maxExp) * 100));
+    document.getElementById('topExpText').textContent = `${p.exp}/${p.maxExp}`;
+    document.getElementById('topExpBar').style.width = expPct + '%';
+
+    document.getElementById('breakthroughQuickBtn').classList.toggle('hidden', p.exp < p.maxExp);
+
+    // 2. 主舞台卷轴与抉择
+    document.getElementById('worldEraTitle').textContent = this.state.worldInfo.eraName || '太虚天道卷轴';
+    document.getElementById('storyScrollBox').textContent = this.state.currentScene.storyText;
+
+    const choicesBox = document.getElementById('choicesContainer');
+    choicesBox.innerHTML = '';
+    (this.state.currentScene.choices || []).forEach(ch => {
+      const b = document.createElement('button');
+      b.className = 'btn-choice w-full px-4 py-3 flex items-center justify-between gap-2';
+      const icon = ch.type === 'combat' ? '⚔️' : (ch.type === 'stealth' ? '🕵️' : '🍵');
+      b.innerHTML = `<span>${icon} ${ch.text}</span><span class="text-[#2E5A44] font-bold shrink-0">➔</span>`;
+      b.addEventListener('click', () => this.executeRealTimeAction('奇遇抉择', ch.text));
+      choicesBox.appendChild(b);
+    });
+
+    // 3. 上下三界地图
+    const curPlane = this.state.worldInfo.currentPlane || '凡人下界';
+    document.getElementById('currentPlaneLabel').textContent = curPlane;
+    document.querySelectorAll('.plane-switch-btn').forEach(btn => {
+      const active = btn.getAttribute('data-plane') === curPlane;
+      btn.className = `plane-switch-btn py-2 rounded-xl font-bold text-[0.88rem] ${active ? 'bg-[#2E5A44] text-white' : 'bg-[#EAE6D7] text-[#1F2421]'}`;
+    });
+
+    const mapGrid = document.getElementById('worldMapGrid');
+    mapGrid.innerHTML = '';
+    const mapsInPlane = (this.state.worldInfo.maps || []).filter(m => m.plane === curPlane);
+    mapsInPlane.forEach(m => {
+      const isHere = p.location === m.name;
+      const div = document.createElement('div');
+      div.className = `p-3.5 rounded-xl border ${isHere ? 'bg-[#E8F0EB] border-[#2E5A44]' : 'bg-[#F6F4EC] border-[#E2DEC9]'} flex items-center justify-between gap-3`;
+      div.innerHTML = `
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="font-extrabold text-[1rem]">📍 ${m.name}</span>
+            <span class="text-[0.76rem] px-2 py-0.5 rounded bg-white text-[#B8860B] font-bold border border-[#E2DEC9]">${m.danger}</span>
+          </div>
+          <p class="text-[0.86rem] text-[#5A655E] mt-0.5">${m.desc}</p>
+        </div>
+        <button class="${isHere ? 'px-3 py-2 rounded-xl bg-[#2E5A44]/20 text-[#2E5A44] font-bold shrink-0' : 'btn-pine px-3.5 shrink-0'}">
+          ${isHere ? '所在' : '前往'}
+        </button>
+      `;
+      if (!isHere) {
+        div.querySelector('button').addEventListener('click', () => {
+          this.state.player.location = m.name;
+          SaveManager.saveMain(this.state);
+          document.querySelector('[data-subtab="adv-story"]').click();
+          this.executeRealTimeAction('跨地域探索', `动身前往【${curPlane} · ${m.name}】，探查当地风物与奇遇`);
+        });
+      }
+      mapGrid.appendChild(div);
+    });
+
+    document.getElementById('towerFloorBadge').textContent = `万劫渊 第${p.towerFloor}层`;
+
+    // 4. 角色洞府：丰富可视化面板
+    document.getElementById('cavePlayerTitle').textContent = `${p.name}（${p.gender} · ${realm.name}）`;
+    document.getElementById('caveOriginText').textContent = `出身：${p.origin} ｜ 大道：${p.path}`;
+    document.getElementById('statLifespanText').textContent = `${p.age} / ${p.maxLifespan} 载`;
+    document.getElementById('statLifespanBar').style.width = Math.min(100, Math.floor((p.age / p.maxLifespan) * 100)) + '%';
+
+    const karmaLabel = p.karma > 15 ? `浩然正气 (+${p.karma})` : (p.karma < -15 ? `魔威滔天 (${p.karma})` : `澄明中立 (${p.karma})`);
+    document.getElementById('statKarmaText').textContent = karmaLabel;
+    document.getElementById('statKarmaDot').style.left = Math.max(4, Math.min(94, 50 + p.karma * 0.45)) + '%';
+
+    document.getElementById('statAtkVal').textContent = p.atk;
+    document.getElementById('statDefVal').textContent = p.def;
+    document.getElementById('statMaxHpVal').textContent = p.maxHp;
+    document.getElementById('statLuckVal').textContent = p.luck;
+    document.getElementById('statInsightVal').textContent = p.insight;
+    document.getElementById('statSpiritVal').textContent = p.spirit;
+
+    const roots = p.roots || { gold: 20, wood: 20, water: 20, fire: 20, earth: 20 };
+    const rootCfg = [
+      { k: 'gold', name: '金灵根', color: 'bg-amber-500' },
+      { k: 'wood', name: '木灵根', color: 'bg-emerald-600' },
+      { k: 'water', name: '水灵根', color: 'bg-sky-600' },
+      { k: 'fire', name: '火灵根', color: 'bg-rose-600' },
+      { k: 'earth', name: '土灵根', color: 'bg-stone-600' }
+    ];
+    document.getElementById('fiveElementsBars').innerHTML = rootCfg.map(r => `
+      <div class="bg-white p-2 rounded-xl border border-[#E2DEC9]">
+        <div>${r.name}</div>
+        <div class="text-[#2E5A44] font-extrabold">${roots[r.k] || 20}</div>
+        <div class="w-full h-1.5 bg-gray-200 rounded-full mt-1 overflow-hidden">
+          <div class="h-full ${r.color}" style="width:${Math.min(100, (roots[r.k] || 20) * 2)}%"></div>
+        </div>
+      </div>
+    `).join('');
+
+    // 5. 四大唯一装备槽与分类折叠堆叠背包
+    const slotsGrid = document.getElementById('equippedSlotsGrid');
+    slotsGrid.innerHTML = '';
+    ['weapon', 'helm', 'armor', 'relic'].forEach(slotKey => {
+      const cfg = GameConfig.EQUIP_SLOTS[slotKey];
+      const equippedKey = this.state.equippedSlots[slotKey];
+      const item = this.state.inventory.find(x => x.stackKey === equippedKey);
+      const cell = document.createElement('div');
+      cell.className = `p-3 rounded-xl border ${item ? 'bg-[#E8F0EB] border-[#2E5A44]' : 'bg-[#F6F4EC] border-[#E2DEC9]'} cursor-pointer`;
+      cell.innerHTML = `
+        <div class="text-[0.78rem] font-bold text-[#5A655E]">${cfg.label}</div>
+        <div class="font-extrabold text-[0.95rem] mt-0.5 ${item ? 'text-[#2E5A44]' : 'text-gray-400'}">
+          ${item ? `${item.name} (${item.rarity})` : '【未穿戴】'}
+        </div>
+      `;
+      if (item) {
+        cell.addEventListener('click', () => this.openItemModal(item, false));
+      }
+      slotsGrid.appendChild(cell);
+    });
+
+    document.getElementById('bagTotalKindsBadge').textContent = `共 ${this.state.inventory.length} 种物品`;
+    const bagContainer = document.getElementById('categorizedBagContainer');
+    bagContainer.innerHTML = '';
+
+    GameConfig.BAG_CATEGORIES.forEach(cat => {
+      const items = this.state.inventory.filter(x => x.slot === cat.key);
+      const isCollapsed = this.collapsedCategories[cat.key];
+      const wrapper = document.createElement('div');
+      wrapper.className = ' rounded-xl border border-[#E2DEC9] overflow-hidden';
+
+      const header = document.createElement('button');
+      header.className = 'w-full px-4 py-2.5 bg-[#F6F4EC] flex items-center justify-between font-extrabold text-[0.95rem] text-[#1F2421]';
+      header.innerHTML = `
+        <span>${cat.title}（${items.length} 种）</span>
+        <span class="text-[#2E5A44]">${isCollapsed ? '➕ 展开' : '➖ 收起'}</span>
+      `;
+      header.addEventListener('click', () => {
+        this.collapsedCategories[cat.key] = !this.collapsedCategories[cat.key];
+        this.renderAll();
+      });
+      wrapper.appendChild(header);
+
+      if (!isCollapsed) {
+        const listDiv = document.createElement('div');
+        listDiv.className = 'p-2.5 bg-white flex flex-col gap-2';
+        if (items.length === 0) {
+          listDiv.innerHTML = `<div class="text-[0.84rem] text-[#5A655E] text-center py-2">此类暂无物品</div>`;
+        } else {
+          items.forEach(it => {
+            const isEq = this.state.equippedSlots[it.slot] === it.stackKey;
+            const row = document.createElement('div');
+            row.className = 'p-3 rounded-xl bg-[#FAF9F5] border border-[#E2DEC9] flex items-center justify-between cursor-pointer';
+            row.innerHTML = `
+              <div>
+                <div class="flex items-center gap-1.5 flex-wrap">
+                  <span class="font-extrabold text-[0.95rem]">${it.name}</span>
+                  <span class="px-2 py-0.5 text-[0.75rem] rounded bg-[#FDF8EC] text-[#B8860B] font-bold border border-[#B8860B]/30">${it.rarity}</span>
+                  <span class="px-2 py-0.5 text-[0.75rem] rounded bg-[#EAE6D7] text-[#1F2421] font-extrabold">x${it.count}</span>
+                  ${isEq ? '<span class="px-2 py-0.5 text-[0.75rem] rounded bg-[#2E5A44] text-white font-bold">已穿戴</span>' : ''}
+                </div>
+                <div class="text-[0.8rem] text-[#5A655E] mt-0.5">${it.desc}</div>
+              </div>
+              <span class="text-[#2E5A44] font-bold text-[0.85rem] shrink-0 ml-2">操作 ➔</span>
+            `;
+            row.addEventListener('click', () => this.openItemModal(it, false));
+            listDiv.appendChild(row);
+          });
+        }
+        wrapper.appendChild(listDiv);
+      }
+      bagContainer.appendChild(wrapper);
+    });
+
+    // 6. 功法列表
+    const skillsGrid = document.getElementById('skillsGrid');
+    skillsGrid.innerHTML = '';
+    this.state.skills.forEach(sk => {
+      const row = document.createElement('div');
+      row.className = 'p-3.5 rounded-xl bg-[#F6F4EC] border border-[#E2DEC9] flex items-center justify-between cursor-pointer';
+      row.innerHTML = `
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="font-extrabold text-[0.98rem] text-[#2E5A44]">📘 ${sk.name}</span>
+            <span class="px-2 py-0.5 text-[0.76rem] rounded bg-white text-[#B8860B] font-bold border border-[#E2DEC9]">第 ${sk.level || 1} 重</span>
+          </div>
+          <div class="text-[0.84rem] text-[#5A655E] mt-0.5">${sk.desc}</div>
+        </div>
+        <span class="text-[#2E5A44] font-bold text-[0.86rem] shrink-0">参悟 ➔</span>
+      `;
+      row.addEventListener('click', () => this.openItemModal(sk, true));
+      skillsGrid.appendChild(row);
+    });
+
+    // 7. NPC 深度互动列表（论道 / 切磋 / 赠礼 / 暗算）
+    const npcBox = document.getElementById('npcListContainer');
+    npcBox.innerHTML = '';
+    Object.values(this.state.ragMemory.npcRegistry || {}).forEach(npc => {
+      const aff = Number(npc.affinity) || 0;
+      const card = document.createElement('div');
+      card.className = 'p-4 rounded-xl bg-[#F6F4EC] border border-[#E2DEC9] flex flex-col gap-2';
+      card.innerHTML = `
+        <div class="flex items-center justify-between">
+          <div>
+            <span class="font-extrabold text-[1rem]">👤 ${npc.name}</span>
+            <span class="text-[0.84rem] text-[#5A655E]">（${npc.title} · 📍${npc.location || '九州'}）</span>
+          </div>
+          <span class="px-2.5 py-0.5 rounded-full text-[0.78rem] font-bold ${aff >= 0 ? 'bg-[#E8F0EB] text-[#2E5A44]' : 'bg-red-100 text-red-700'}">
+            羁绊 ${aff >= 0 ? '+' + aff : aff}
+          </span>
+        </div>
+        <div class="text-[0.88rem] text-[#1F2421]">${npc.note || '萍水相逢'}</div>
+        <div class="grid grid-cols-4 gap-1.5 pt-1">
+          <button data-act="论道交心" class="py-1.5 rounded-lg bg-white border border-[#D5CFB8] font-bold text-[0.8rem] text-[#2E5A44]">🍵 论道</button>
+          <button data-act="切磋印证" class="py-1.5 rounded-lg bg-white border border-[#D5CFB8] font-bold text-[0.8rem] text-[#B8860B]">⚔️ 切磋</button>
+          <button data-act="赠予50灵石结交" class="py-1.5 rounded-lg bg-white border border-[#D5CFB8] font-bold text-[0.8rem] text-[#1F2421]">🎁 赠礼</button>
+          <button data-act="悍然出手袭杀夺宝" class="py-1.5 rounded-lg bg-red-50 border border-red-300 font-bold text-[0.8rem] text-red-700">🗡️ 暗算</button>
+        </div>
+      `;
+      card.querySelectorAll('button[data-act]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const act = btn.getAttribute('data-act');
+          if (act.includes('50灵石') && this.state.player.spiritStones < 50) {
+            this.showToast('🪙 灵石不足 50 枚');
+            return;
+          }
+          if (act.includes('50灵石')) this.state.player.spiritStones -= 50;
+          this.switchMainTab('tab-adventure');
+          document.querySelector('[data-subtab="adv-story"]').click();
+          this.executeRealTimeAction('人物互动', `寻访【${npc.name}】（${npc.title}），对其发起「${act}」`);
+        });
+      });
+      npcBox.appendChild(card);
+    });
+
+    // 8. 轮回往世录渲染
+    document.getElementById('legacyPointsBadge').textContent = `轮回底蕴 +${this.state.reincarnation.legacyPoints || 0} 点`;
+    const pastBox = document.getElementById('pastLivesContainer');
+    pastBox.innerHTML = '';
+    const pastLives = this.state.reincarnation.pastLives || [];
+    if (pastLives.length === 0) {
+      pastBox.innerHTML = `<div class="p-4 text-center text-[#5A655E]">当前尚在第 1 世修行，结算此世后将在此立碑铭刻您的传奇一生。</div>`;
+    } else {
+      pastLives.forEach(pl => {
+        const div = document.createElement('div');
+        div.className = 'p-4 rounded-xl bg-[#FDF8EC] border border-[#B8860B]/40 flex flex-col gap-1.5';
+        div.innerHTML = `
+          <div class="flex items-center justify-between border-b border-[#B8860B]/20 pb-1.5">
+            <span class="font-extrabold text-[1rem] text-[#8B6508]">🪦 第 ${pl.lifeNum} 世 · ${pl.name}（${pl.finalRealm}）</span>
+            <span class="text-[0.78rem] font-bold text-[#2E5A44]">享年 ${pl.age} 载 ｜ 底蕴 +${pl.earnedPoints}</span>
+          </div>
+          <div class="text-[0.84rem] text-[#5A655E]">出身：${pl.origin} ｜ 所修大道：${pl.path}</div>
+          <div class="text-[0.9rem] font-extrabold text-[#2E5A44]">判词：「${pl.epitaph}」</div>
+          <p class="text-[0.9rem] text-[#1F2421] leading-relaxed">${pl.biography}</p>
+        `;
+        pastBox.appendChild(div);
+      });
+    }
+
+    // 9. 本世大事记与宗门声望
+    const facts = this.state.ragMemory.worldFacts || [];
+    document.getElementById('ragFactCountBadge').textContent = `${facts.length} 条`;
+    document.getElementById('worldFactsContainer').innerHTML = facts.map(f => `
+      <div class="p-3 rounded-xl bg-[#F6F4EC] border border-[#E2DEC9]">
+        <div class="text-[0.76rem] text-[#5A655E] flex justify-between"><span>📍 ${f.location}</span><span>${f.timestamp}</span></div>
+        <div class="text-[0.92rem] font-semibold mt-0.5">${f.summary}</div>
+      </div>
+    `).join('');
+
+    document.getElementById('factionsContainer').innerHTML = (this.state.factions || []).map(fac => `
+      <div class="p-3.5 rounded-xl bg-[#F6F4EC] border border-[#E2DEC9] flex items-center justify-between">
+        <div>
+          <div class="font-extrabold text-[0.98rem]">🏯 ${fac.name}</div>
+          <div class="text-[0.82rem] text-[#5A655E]">${fac.relation}</div>
+        </div>
+        <span class="px-3 py-1 rounded-xl font-bold text-[0.86rem] ${fac.reputation >= 0 ? 'bg-[#E8F0EB] text-[#2E5A44]' : 'bg-red-100 text-red-700'}">
+          声望 ${fac.reputation}
+        </span>
+      </div>
+    `).join('');
+
+    // 10. 本地三才存档槽与 API 回填
+    const slotsBox = document.getElementById('saveSlotsContainer');
+    slotsBox.innerHTML = '';
+    [1, 2, 3].forEach(num => {
+      const raw = localStorage.getItem(GameConfig.STORAGE_SLOT_PREFIX + num);
+      let meta = null;
+      try { if (raw) meta = JSON.parse(raw); } catch (e) {}
+      const row = document.createElement('div');
+      row.className = 'p-3 rounded-xl bg-[#F6F4EC] border border-[#E2DEC9] flex items-center justify-between';
+      row.innerHTML = `
+        <div class="text-[0.88rem] font-bold">
+          槽位 ${num}：${meta ? `第${meta.reincarnation?.lifeCount || 1}世·${meta.player?.name} (${meta.savedAt})` : '【空置玉简】'}
+        </div>
+        <div class="flex gap-1.5">
+          <button data-s="${num}" class="px-3 py-1.5 rounded-lg bg-[#2E5A44] text-white font-bold text-[0.8rem]">刻录</button>
+          ${meta ? `<button data-l="${num}" class="px-3 py-1.5 rounded-lg bg-[#B8860B] text-white font-bold text-[0.8rem]">读取</button>` : ''}
+        </div>
+      `;
+      row.querySelector(`[data-s="${num}"]`).addEventListener('click', () => {
+        localStorage.setItem(GameConfig.STORAGE_SLOT_PREFIX + num, JSON.stringify(this.state));
+        this.renderAll();
+        this.showToast(`💾 已刻录至槽位 ${num}`);
+      });
+      const lBtn = row.querySelector(`[data-l="${num}"]`);
+      if (lBtn) {
+        lBtn.addEventListener('click', () => {
+          this.state = SaveManager.sanitizeAndHeal(meta);
+          SaveManager.saveMain(this.state);
+          this.renderAll();
+          this.showToast(`✨ 已读取槽位 ${num} 存档`);
+        });
+      }
+      slotsBox.appendChild(row);
+    });
+
+    const apiCfg = AIGameMaster.getApiConfig();
+    document.getElementById('cfgApiEndpointInput').value = apiCfg.endpoint || 'https://api.deepseek.com/chat/completions';
+    document.getElementById('cfgApiModelInput').value = apiCfg.model || 'deepseek-chat';
+    document.getElementById('cfgApiKeyInput').value = apiCfg.apiKey || '';
+  }
+}
+
+/********************************************************************
+ * Module 6: ChangelogSystem（鬼谷八荒式点列更新日志 & 版本升级自动弹窗）
+ ********************************************************************/
+const ChangelogSystem = {
+  // 👇 以后每次你在 GitHub 更新完代码，只需把这里的版本号改大一点（如改成 '0.6.102'），老爸那边点完更新就会自动弹窗！
+  CURRENT_VERSION: '0.6.101',
+  SEEN_VERSION_KEY: 'TAIXU_SEEN_CHANGELOG_VER',
+
+  // 👇 鬼谷八荒格式：从新到旧排列，每次更新往最前面 unshift / 粘贴一段即可
+  HISTORY: [
+    {
+      version: '0.6.101',
+      date: '2026-11-12',
+      title: '【诸天万道 · 百世轮回大版本更新】',
+      items: [
+        '1. 【新增】彻底打破固定“剑修”模板，新增开局自主创角系统（自由设定姓名、性别、出身背景、任意主修流派与先天属性点分配）。',
+        '2. 【新增】引入开局 DeepSeek 实时创世推演，每一世自动生成截然不同的纪元背景、上下三界地图、特色宗门与本命器物。',
+        '3. 【新增】新增《百世轮回碑林（轮回往世录）》，角色陨落或主动兵解时由司命星君撰写生平列传，并结算轮回天道底蕴继承给下一世。',
+        '4. 【新增】天道设置中新增 13px ~ 20px 全局护眼字号无级拖动滑块，以及免重装云端一键 OTA 热更新引擎。',
+        '5. 【优化】全面重构储物纳戒系统：支持兵器、冠冕、护甲、异宝、灵丹五大分类折叠展开，同名同品阶物品自动堆叠合并（x数量）。',
+        '6. 【优化】新增“⚡ 一键穿戴最强套装”功能，自动扫描纳戒并装备四部位最高战力神装。',
+        '7. 【修复】彻底修复同部位装备（如多顶冠冕、多件护甲）可同时无限叠加穿戴的逆天数值 Bug，改为四部位互斥唯一槽位。',
+        '8. 【修复】修复日常行动不加修为或无脑加修为的问题，改为 80% 以上交互由 DeepSeek 按行为逻辑真实裁决因果。'
+      ]
+    },
+    {
+      version: '0.4.050',
+      date: '2026-11-11',
+      title: '【三界舆图与人物深度交互更新】',
+      items: [
+        '1. 【新增】开放凡人下界、古灵中界、太虚仙界三层位面舆图，支持“✨ 天道推演新秘境”动态开图。',
+        '2. 【新增】诸天人物谱新增【🍵 论道】【⚔️ 切磋】【🎁 赠礼】【🗡️ 暗算】四大实时交互指令。',
+        '3. 【新增】洞府面板新增寿元大限进度条、正邪道心倾向条及先天五行灵根亲和度可视化视图。'
+      ]
+    },
+    {
+      version: '0.2.010',
+      date: '2026-11-10',
+      title: '【太虚初开 · 本地 RAG 记忆与改档系统】',
+      items: [
+        '1. 【新增】《太虚问道录》初版创世发布，确立温润护眼的水墨宣纸雅致古风 UI 与两级胶囊收纳架构。',
+        '2. 【新增】搭载本地轻量级 MemoryRAG 因果检索增强引擎，自动检索 Top-6 生平大事记与 Top-5 高羁绊人物注入天道。',
+        '3. 【新增】支持独立 .json 明文存档导入/导出与在线数值修改器，方便随时备份与调优。'
+      ]
+    }
+  ],
+
+  renderToContainer() {
+    const box = document.getElementById('changelogListBox');
+    if (!box) return;
+    box.innerHTML = this.HISTORY.map((ver, idx) => `
+      <div class="p-4 rounded-xl ${idx === 0 ? 'bg-[#FDF8EC] border-2 border-[#B8860B]/50' : 'bg-[#F6F4EC] border border-[#E2DEC9]'} flex flex-col gap-2">
+        <div class="flex items-center justify-between border-b border-[#E2DEC9] pb-1.5 flex-wrap gap-1">
+          <div class="flex items-center gap-2">
+            <span class="px-2.5 py-0.5 rounded-lg ${idx === 0 ? 'bg-[#B8860B] text-white' : 'bg-[#2E5A44] text-white'} font-extrabold text-[0.82rem]">
+              v${ver.version}
+            </span>
+            <span class="font-extrabold text-[1rem] text-[#1F2421]">${ver.title}</span>
+          </div>
+          <span class="text-[0.78rem] text-[#5A655E] font-bold">${ver.date}</span>
+        </div>
+        <div class="flex flex-col gap-1.5 text-[0.92rem] text-[#1F2421] leading-relaxed pt-1">
+          ${ver.items.map(line => {
+            const styledLine = line
+              .replace('【新增】', '<strong class="text-[#2E5A44]">【新增】</strong>')
+              .replace('【优化】', '<strong class="text-[#B8860B]">【优化】</strong>')
+              .replace('【修复】', '<strong class="text-rose-700">【修复】</strong>');
+            return `<div>${styledLine}</div>`;
+          }).join('')}
+        </div>
+      </div>
+    `).join('');
+  },
+
+  openModal() {
+    this.renderToContainer();
+    const modal = document.getElementById('changelogModal');
+    if (modal) {
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+    localStorage.setItem(this.SEEN_VERSION_KEY, this.CURRENT_VERSION);
+  },
+
+  closeModal() {
+    const modal = document.getElementById('changelogModal');
+    if (modal) {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+  },
+
+  init() {
+    document.getElementById('topChangelogBtn')?.addEventListener('click', () => {
+      AudioSynth.play('click');
+      this.openModal();
+    });
+    document.getElementById('closeChangelogModalBtn')?.addEventListener('click', () => this.closeModal());
+    document.getElementById('confirmChangelogBtn')?.addEventListener('click', () => this.closeModal());
+
+    // 自动检测：如果老爸刚点完【☁️ 更新】拉取了新版本，版本号与本地记录不一致，自动弹出更新日志！
+    const lastSeen = localStorage.getItem(this.SEEN_VERSION_KEY);
+    if (lastSeen !== this.CURRENT_VERSION) {
+      setTimeout(() => this.openModal(), 400);
+    }
+  }
+};
+
+window.addEventListener('DOMContentLoaded', () => {
+  window.taixuGame = new UIController();
+  ChangelogSystem.init();
+});
+  </script>
+</body>
+</html>
